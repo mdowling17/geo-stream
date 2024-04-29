@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAFuUNbX9fUaE0XJv-D9w5BYWvX__O0erQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>491488640552</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ziruiwang.GeoStream</string>
+	<key>PROJECT_ID</key>
+	<string>geostream-c3723</string>
+	<key>STORAGE_BUCKET</key>
+	<string>geostream-c3723.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:491488640552:ios:3c1bcd91f2e0193477bf1d</string>
+</dict>
+</plist>
