@@ -10,16 +10,17 @@ import Firebase
 
 @main
 struct GeoStreamApp: App {
-    @StateObject var authVM = AuthViewModel()
-
     init() {
         FirebaseApp.configure()
     }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-            .environmentObject(authVM)
+            if AuthService.shared.currentUser != nil {
+                HomeViewTemp()
+            } else {
+                SignInView()
+            }
         }
     }
 }

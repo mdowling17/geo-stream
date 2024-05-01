@@ -10,27 +10,28 @@ import SwiftUI
 struct ContentView: View {
     
     var body: some View {
-        TabView {
-            StreamView()
-                .tabItem {
-                    Label("Stream", systemImage: "globe")
-                }
-            
-            ChatView()
-                .tabItem {
-                    Label("Chat", systemImage: "message")
-                }
-            
-            SearchView()
-                .tabItem {
-                    Label("Search", systemImage: "magnifyingglass")
-                }
-            
-            ProfileView()
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
-        }
+        SignInView()
+//        TabView {
+//            StreamView()
+//                .tabItem {
+//                    Label("Stream", systemImage: "globe")
+//                }
+//            
+//            ChatView()
+//                .tabItem {
+//                    Label("Chat", systemImage: "message")
+//                }
+//            
+//            SearchView()
+//                .tabItem {
+//                    Label("Search", systemImage: "magnifyingglass")
+//                }
+//            
+//            ProfileView()
+//                .tabItem {
+//                    Label("Profile", systemImage: "person")
+//                }
+//        }
     }
 }
 
