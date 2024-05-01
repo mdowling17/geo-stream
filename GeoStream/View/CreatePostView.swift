@@ -12,7 +12,6 @@ struct CreatePostView: View {
     @State private var selectedType = "Event"
     var type = ["Event", "Alert", "Review", "All"]
     @ObservedObject var CreatePostVM = CreatePostViewModel()
-    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         VStack{
@@ -87,5 +86,5 @@ struct TextArea: View {
 }
 
 #Preview {
-    CreatePostView().environmentObject(AuthViewModel())
+    CreatePostView()
 }
