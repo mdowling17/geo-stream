@@ -17,7 +17,7 @@ struct GeoStreamApp: App {
     var body: some Scene {
         WindowGroup {
             if AuthService.shared.currentUser != nil {
-                HomeViewTemp()
+                ContentView()
             } else {
                 SignInView()
             }
