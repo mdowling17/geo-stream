@@ -28,6 +28,15 @@
       }
     },
     {
+      "identity" : "geofire-objc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/smaldd14/geofire-objc",
+      "state" : {
+        "branch" : "master",
+        "revision" : "4ff0e7376513b2df2cc6a312b9a7a1640fc4b1be"
+      }
+    },
+    {
       "identity" : "googleappmeasurement",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
