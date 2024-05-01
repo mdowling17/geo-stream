@@ -7,13 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		945DB49F2BDC5E7700FF258D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945DB49E2BDC5E7700FF258D /* Post.swift */; };
-		94707BE52BDFDEE7009B0E2A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BE42BDFDEE7009B0E2A /* SignInView.swift */; };
-		94707BE72BDFDF24009B0E2A /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BE62BDFDF24009B0E2A /* SignUpView.swift */; };
-		94707BE92BDFDF8E009B0E2A /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BE82BDFDF8E009B0E2A /* AuthViewModel.swift */; };
-		94707BED2BDFE9D8009B0E2A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BEC2BDFE9D8009B0E2A /* User.swift */; };
-		94707BEF2BE0097C009B0E2A /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BEE2BE0097C009B0E2A /* ProfileEditView.swift */; };
-		94707BF22BE00C19009B0E2A /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BF12BE00C19009B0E2A /* UserService.swift */; };
 		94C397DF2BC741710064A937 /* GeoStreamApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C397DE2BC741710064A937 /* GeoStreamApp.swift */; };
 		94C397E12BC741710064A937 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C397E02BC741710064A937 /* ContentView.swift */; };
 		94C397E32BC741720064A937 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94C397E22BC741720064A937 /* Assets.xcassets */; };
@@ -26,11 +19,23 @@
 		94F73E4D2BDF045F00EAEB78 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 94F73E4C2BDF045F00EAEB78 /* FirebaseFirestore */; };
 		94F73E4F2BDF045F00EAEB78 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 94F73E4E2BDF045F00EAEB78 /* FirebaseMessaging */; };
 		94F73E512BDF045F00EAEB78 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 94F73E502BDF045F00EAEB78 /* FirebaseStorage */; };
+		C914F3432BE2714400B26DE2 /* HomeViewTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3422BE2714400B26DE2 /* HomeViewTemp.swift */; };
+		C914F3452BE271E600B26DE2 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3442BE271E600B26DE2 /* SignUpViewModel.swift */; };
+		C914F3492BE2734900B26DE2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3482BE2734900B26DE2 /* SignUpView.swift */; };
+		C914F3502BE2879600B26DE2 /* GeoFire in Frameworks */ = {isa = PBXBuildFile; productRef = C914F34F2BE2879600B26DE2 /* GeoFire */; };
+		C914F3522BE2879600B26DE2 /* GeoFireUtils in Frameworks */ = {isa = PBXBuildFile; productRef = C914F3512BE2879600B26DE2 /* GeoFireUtils */; };
+		C914F3542BE2A89D00B26DE2 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3532BE2A89D00B26DE2 /* ForgotPasswordView.swift */; };
+		C914F3562BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3552BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift */; };
+		C914F3582BE2ACF800B26DE2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3572BE2ACF800B26DE2 /* CustomTextField.swift */; };
+		C914F35C2BE2B3A300B26DE2 /* AppHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F35B2BE2B3A300B26DE2 /* AppHeader.swift */; };
 		C99BF7122BE03D440057DB4C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7112BE03D440057DB4C /* FirebaseAnalytics */; };
 		C99BF7142BE03D440057DB4C /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7132BE03D440057DB4C /* FirebaseAnalyticsOnDeviceConversion */; };
 		C99BF7162BE03D440057DB4C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7152BE03D440057DB4C /* FirebaseAnalyticsSwift */; };
 		C99BF7182BE03D440057DB4C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7172BE03D440057DB4C /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		C99BF71A2BE03D440057DB4C /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7192BE03D440057DB4C /* FirebaseAppCheck */; };
+		C99BF74A2BE1DC370057DB4C /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BF7492BE1DC370057DB4C /* SignInView.swift */; };
+		C99BF7592BE2654D0057DB4C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BF7582BE2654D0057DB4C /* AuthService.swift */; };
+		C99BF75B2BE268D10057DB4C /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99BF75A2BE268D10057DB4C /* SignInViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,13 +56,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		945DB49E2BDC5E7700FF258D /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		94707BE42BDFDEE7009B0E2A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		94707BE62BDFDF24009B0E2A /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		94707BE82BDFDF8E009B0E2A /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
-		94707BEC2BDFE9D8009B0E2A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		94707BEE2BE0097C009B0E2A /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
-		94707BF12BE00C19009B0E2A /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		94C397DB2BC741710064A937 /* GeoStream.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoStream.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C397DE2BC741710064A937 /* GeoStreamApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoStreamApp.swift; sourceTree = "<group>"; };
 		94C397E02BC741710064A937 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -69,6 +67,16 @@
 		94C397F92BC741720064A937 /* GeoStreamUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoStreamUITests.swift; sourceTree = "<group>"; };
 		94C397FB2BC741720064A937 /* GeoStreamUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoStreamUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		94F73E482BDF041000EAEB78 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C914F3422BE2714400B26DE2 /* HomeViewTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewTemp.swift; sourceTree = "<group>"; };
+		C914F3442BE271E600B26DE2 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		C914F3482BE2734900B26DE2 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		C914F3532BE2A89D00B26DE2 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		C914F3552BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		C914F3572BE2ACF800B26DE2 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		C914F35B2BE2B3A300B26DE2 /* AppHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeader.swift; sourceTree = "<group>"; };
+		C99BF7492BE1DC370057DB4C /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		C99BF7582BE2654D0057DB4C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		C99BF75A2BE268D10057DB4C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,9 +88,11 @@
 				C99BF7142BE03D440057DB4C /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				94F73E512BDF045F00EAEB78 /* FirebaseStorage in Frameworks */,
 				94F73E4B2BDF045F00EAEB78 /* FirebaseAuth in Frameworks */,
+				C914F3502BE2879600B26DE2 /* GeoFire in Frameworks */,
 				C99BF7162BE03D440057DB4C /* FirebaseAnalyticsSwift in Frameworks */,
 				C99BF7122BE03D440057DB4C /* FirebaseAnalytics in Frameworks */,
 				94F73E4D2BDF045F00EAEB78 /* FirebaseFirestore in Frameworks */,
+				C914F3522BE2879600B26DE2 /* GeoFireUtils in Frameworks */,
 				C99BF71A2BE03D440057DB4C /* FirebaseAppCheck in Frameworks */,
 				C99BF7182BE03D440057DB4C /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 			);
@@ -105,23 +115,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		945DB49D2BDC5E6400FF258D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				945DB49E2BDC5E7700FF258D /* Post.swift */,
-				94707BEC2BDFE9D8009B0E2A /* User.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		94707BF02BE00C0C009B0E2A /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				94707BF12BE00C19009B0E2A /* UserService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
 		94C397D22BC741710064A937 = {
 			isa = PBXGroup;
 			children = (
@@ -146,14 +139,15 @@
 		94C397DD2BC741710064A937 /* GeoStream */ = {
 			isa = PBXGroup;
 			children = (
-				94C397DE2BC741710064A937 /* GeoStreamApp.swift */,
-				94C397E02BC741710064A937 /* ContentView.swift */,
-				945DB49D2BDC5E6400FF258D /* Model */,
-				94707BF02BE00C0C009B0E2A /* Service */,
-				94F73E522BDF126A00EAEB78 /* View */,
-				C99BF71B2BE03F2C0057DB4C /* ViewModel */,
 				94C397E42BC741720064A937 /* Preview Content */,
 				94C397E22BC741720064A937 /* Assets.xcassets */,
+				94C397E02BC741710064A937 /* ContentView.swift */,
+				94C397DE2BC741710064A937 /* GeoStreamApp.swift */,
+				C99BF7542BE256AB0057DB4C /* Model */,
+				C99BF7572BE256BF0057DB4C /* Service */,
+				C99BF7552BE256B00057DB4C /* View */,
+				C99BF7562BE256B70057DB4C /* ViewModel */,
+				C914F35E2BE2B63C00B26DE2 /* ViewUtil */,
 			);
 			path = GeoStream;
 			sourceTree = "<group>";
@@ -183,22 +177,49 @@
 			path = GeoStreamUITests;
 			sourceTree = "<group>";
 		};
-		94F73E522BDF126A00EAEB78 /* View */ = {
+		C914F35E2BE2B63C00B26DE2 /* ViewUtil */ = {
 			isa = PBXGroup;
 			children = (
-				94707BEE2BE0097C009B0E2A /* ProfileEditView.swift */,
-				94707BE42BDFDEE7009B0E2A /* SignInView.swift */,
-				94707BE62BDFDF24009B0E2A /* SignUpView.swift */,
+				C914F35B2BE2B3A300B26DE2 /* AppHeader.swift */,
+				C914F3572BE2ACF800B26DE2 /* CustomTextField.swift */,
+			);
+			path = ViewUtil;
+			sourceTree = "<group>";
+		};
+		C99BF7542BE256AB0057DB4C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C99BF7552BE256B00057DB4C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C914F3532BE2A89D00B26DE2 /* ForgotPasswordView.swift */,
+				C914F3422BE2714400B26DE2 /* HomeViewTemp.swift */,
+				C99BF7492BE1DC370057DB4C /* SignInView.swift */,
+				C914F3482BE2734900B26DE2 /* SignUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		C99BF71B2BE03F2C0057DB4C /* ViewModel */ = {
+		C99BF7562BE256B70057DB4C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				94707BE82BDFDF8E009B0E2A /* AuthViewModel.swift */,
+				C914F3552BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift */,
+				C99BF75A2BE268D10057DB4C /* SignInViewModel.swift */,
+				C914F3442BE271E600B26DE2 /* SignUpViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C99BF7572BE256BF0057DB4C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C99BF7582BE2654D0057DB4C /* AuthService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,6 +248,8 @@
 				C99BF7152BE03D440057DB4C /* FirebaseAnalyticsSwift */,
 				C99BF7172BE03D440057DB4C /* FirebaseAnalyticsWithoutAdIdSupport */,
 				C99BF7192BE03D440057DB4C /* FirebaseAppCheck */,
+				C914F34F2BE2879600B26DE2 /* GeoFire */,
+				C914F3512BE2879600B26DE2 /* GeoFireUtils */,
 			);
 			productName = GeoStream;
 			productReference = 94C397DB2BC741710064A937 /* GeoStream.app */;
@@ -302,6 +325,7 @@
 			mainGroup = 94C397D22BC741710064A937;
 			packageReferences = (
 				94F73E472BDF029F00EAEB78 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C914F34E2BE2879600B26DE2 /* XCRemoteSwiftPackageReference "geofire-objc" */,
 			);
 			productRefGroup = 94C397DC2BC741710064A937 /* Products */;
 			projectDirPath = "";
@@ -346,15 +370,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94707BED2BDFE9D8009B0E2A /* User.swift in Sources */,
-				94707BE52BDFDEE7009B0E2A /* SignInView.swift in Sources */,
-				94707BEF2BE0097C009B0E2A /* ProfileEditView.swift in Sources */,
-				945DB49F2BDC5E7700FF258D /* Post.swift in Sources */,
+				C914F3452BE271E600B26DE2 /* SignUpViewModel.swift in Sources */,
+				C99BF74A2BE1DC370057DB4C /* SignInView.swift in Sources */,
 				94C397E12BC741710064A937 /* ContentView.swift in Sources */,
-				94707BE72BDFDF24009B0E2A /* SignUpView.swift in Sources */,
-				94707BE92BDFDF8E009B0E2A /* AuthViewModel.swift in Sources */,
-				94707BF22BE00C19009B0E2A /* UserService.swift in Sources */,
+				C914F3432BE2714400B26DE2 /* HomeViewTemp.swift in Sources */,
+				C914F3542BE2A89D00B26DE2 /* ForgotPasswordView.swift in Sources */,
+				C914F3582BE2ACF800B26DE2 /* CustomTextField.swift in Sources */,
 				94C397DF2BC741710064A937 /* GeoStreamApp.swift in Sources */,
+				C914F3562BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift in Sources */,
+				C99BF7592BE2654D0057DB4C /* AuthService.swift in Sources */,
+				C914F3492BE2734900B26DE2 /* SignUpView.swift in Sources */,
+				C914F35C2BE2B3A300B26DE2 /* AppHeader.swift in Sources */,
+				C99BF75B2BE268D10057DB4C /* SignInViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +715,14 @@
 				minimumVersion = 10.24.0;
 			};
 		};
+		C914F34E2BE2879600B26DE2 /* XCRemoteSwiftPackageReference "geofire-objc" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/smaldd14/geofire-objc";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -710,6 +745,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 94F73E472BDF029F00EAEB78 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		C914F34F2BE2879600B26DE2 /* GeoFire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C914F34E2BE2879600B26DE2 /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFire;
+		};
+		C914F3512BE2879600B26DE2 /* GeoFireUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C914F34E2BE2879600B26DE2 /* XCRemoteSwiftPackageReference "geofire-objc" */;
+			productName = GeoFireUtils;
 		};
 		C99BF7112BE03D440057DB4C /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
