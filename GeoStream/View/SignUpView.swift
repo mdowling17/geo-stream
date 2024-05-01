@@ -17,7 +17,7 @@ struct SignUpView: View {
             VStack(spacing: 40) {
                 CustomTextField(placeholder: "Email", icon: "envelope", text: $signUpVM.email)
                 CustomTextField(placeholder: "Password", icon: "lock", text: $signUpVM.password, secure: true, showPassword: $signUpVM.showPassword)
-                CustomTextField(placeholder: "Confirm Password", icon: "lock", text: $signUpVM.confirmPassword, secure: true, showPassword: $signUpVM.showPassword)
+                CustomTextField(placeholder: "Confirm Password", icon: "lock", text: $signUpVM.confirmPassword, secure: true, showPassword: $signUpVM.showConfirmPassword)
             }
             .padding(.vertical)
             
