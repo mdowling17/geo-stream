@@ -28,6 +28,8 @@
 		C914F3562BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3552BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift */; };
 		C914F3582BE2ACF800B26DE2 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3572BE2ACF800B26DE2 /* CustomTextField.swift */; };
 		C914F35C2BE2B3A300B26DE2 /* AppHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F35B2BE2B3A300B26DE2 /* AppHeader.swift */; };
+		C914F3602BE2B77F00B26DE2 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F35F2BE2B77F00B26DE2 /* Post.swift */; };
+		C914F3622BE2B79200B26DE2 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914F3612BE2B79200B26DE2 /* User.swift */; };
 		C99BF7122BE03D440057DB4C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7112BE03D440057DB4C /* FirebaseAnalytics */; };
 		C99BF7142BE03D440057DB4C /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7132BE03D440057DB4C /* FirebaseAnalyticsOnDeviceConversion */; };
 		C99BF7162BE03D440057DB4C /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C99BF7152BE03D440057DB4C /* FirebaseAnalyticsSwift */; };
@@ -74,6 +76,8 @@
 		C914F3552BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		C914F3572BE2ACF800B26DE2 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		C914F35B2BE2B3A300B26DE2 /* AppHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHeader.swift; sourceTree = "<group>"; };
+		C914F35F2BE2B77F00B26DE2 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		C914F3612BE2B79200B26DE2 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C99BF7492BE1DC370057DB4C /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		C99BF7582BE2654D0057DB4C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C99BF75A2BE268D10057DB4C /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 		C99BF7542BE256AB0057DB4C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C914F35F2BE2B77F00B26DE2 /* Post.swift */,
+				C914F3612BE2B79200B26DE2 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -374,7 +380,9 @@
 				C99BF74A2BE1DC370057DB4C /* SignInView.swift in Sources */,
 				94C397E12BC741710064A937 /* ContentView.swift in Sources */,
 				C914F3432BE2714400B26DE2 /* HomeViewTemp.swift in Sources */,
+				C914F3602BE2B77F00B26DE2 /* Post.swift in Sources */,
 				C914F3542BE2A89D00B26DE2 /* ForgotPasswordView.swift in Sources */,
+				C914F3622BE2B79200B26DE2 /* User.swift in Sources */,
 				C914F3582BE2ACF800B26DE2 /* CustomTextField.swift in Sources */,
 				94C397DF2BC741710064A937 /* GeoStreamApp.swift in Sources */,
 				C914F3562BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift in Sources */,
