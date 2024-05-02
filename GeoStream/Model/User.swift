@@ -6,11 +6,15 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct User: Identifiable, Codable {
-    let id: String
+    @DocumentID var id: String?
     let email: String
-    let userName: String?
+    let displayName: String?
     let description: String?
-    let profileImgUrl: String?
+}
+
+extension User {
+    static let collectionName = "users"
 }
