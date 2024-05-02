@@ -45,7 +45,7 @@ struct CreatePostView: View {
                     .bold()
                     .padding(.horizontal)
                     .padding(.vertical, 8)
-                    .background(Color.blue)
+                    .background(Color.app)
                     .foregroundColor(.white)
                     .clipShape(Capsule())
             }

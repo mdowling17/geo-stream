@@ -11,6 +11,7 @@ import GeoFire
 import GeoFireUtils
 
 struct PostService {
+    static let shared = PostService()
     let db = Firestore.firestore()
     
     func addPost(content: String, location: CLLocationCoordinate2D, type: String, completion: @escaping(Bool) -> Void) {
@@ -43,4 +44,8 @@ struct PostService {
     func addComment() {}
     
     func deleteComment() {}
+    
+    func fetchComment(_ postId: String) {
+        
+    }
 }

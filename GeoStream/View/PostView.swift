@@ -11,25 +11,42 @@ import CoreLocation
 
 struct PostView: View {
     var post: Post
-    var user: User?
+    var age: Int
+    @StateObject var postVM = PostViewModel()
     
     var body: some View{
         VStack(alignment: .leading) {
-                HStack(alignment: .top, spacing: 12) {
-                    Image(systemName: "person")
+                HStack(alignment: .top, spacing: 20) {
+                    if let img = postVM.userImg {
+                        Image(uiImage: img)
+                            .resizable()
+                            .scaledToFill()
+                            .clipShape(Circle())
+                            .frame(width: 56, height: 56)
+                            .foregroundColor(Color.green)
+                    } else {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                            .scaledToFill()
+                            //.clipShape(Circle())
+                            .frame(width: 56, height: 56)
+                            .foregroundColor(Color.green)
+                    }
                     
                     VStack(alignment: .leading, spacing: 4) {
+                        
                         HStack {
-                            Text(user!.email)
+                            Text("@\(postVM.user?.displayName ?? "NA")")
                                 .font(.subheadline).bold()
+                            Spacer()
                             
-                            Text("@")
-                                .font(.caption)
-                                .foregroundColor(.gray)
-                            
-                            Text("2w")
-                                .font(.caption)
-                                .foregroundColor(.gray)
+                            HStack{
+                                Image(systemName: "clock")
+                                    .foregroundColor(.gray)
+                                Text("\(age) hours ago")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
                         }
                         
                         Text(post.content)
@@ -37,17 +54,19 @@ struct PostView: View {
                             .multilineTextAlignment(.leading)
                     }
                 }
-                
-                ButtonsView()
-                
+                ButtonsView
                 Divider()
+        }.onAppear {
+            Task {
+                await postVM.fetchUser(post.userId)
+                await postVM.fetchUserImg(post.userId)
+            }
         }
     }
 }
 
-
-struct ButtonsView: View {
-    var body: some View {
+extension PostView {
+    var ButtonsView: some View {
         HStack {
             Button {
                 //Action here
@@ -59,17 +78,9 @@ struct ButtonsView: View {
             Spacer()
             
             Button {
-                    //Action here
-            } label: {
-                Image(systemName: "arrow.2.squarepath")
-                    .font(.subheadline)
-            }
-            
-            Spacer()
-            
-            Button {
                 //viewModel.post.didLike ?? false ? viewModel.unlikePost() : viewModel.likePost()
             } label: {
+                Image(systemName:"heart")
 //                Image(systemName: viewModel.post.didLike ?? false ? "heart.fill" : "heart")
 //                    .font(.subheadline)
 //                    .foregroundColor(viewModel.post.didLike ?? false ? .red : .gray)
@@ -90,6 +101,14 @@ struct ButtonsView: View {
 }
 
 #Preview {
-    PostView(post: Post(id: "first", userId: "abc", timestamp: Date(), likes: 0, content: "yes", type: "event", location: CLLocationCoordinate2D(latitude: 37.78815531914898, longitude: -122.40754586877463), imageUrl: [], commentId: []),
-             user: User(email: "abc", userName: "def", description: "hahaha", profileImgUrl: "abc"))
+    PostView(post: Post(id: "first", 
+                        userId: "q5m1AGTK84owC1KShCEt",
+                        timestamp: Date(),
+                        likes: 0,
+                        content: "love this app",
+                        type: "event",
+                        location: CLLocationCoordinate2D(latitude: 37.78815531914898, longitude: -122.40754586877463),
+                        imageUrl: [], 
+                        commentId: []),
+             age: 10)
 }

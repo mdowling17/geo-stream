@@ -6,11 +6,29 @@
 //
 
 import Foundation
+import SwiftUI
 
 class PostViewModel: ObservableObject {
-    let postserv = PostService()
-    //let userserv = AuthService()
+    @Published var user: User?
+    @Published var comments: [Comment] = []
+    @Published var userImg: UIImage?
     
+    func fetchUser(_ userId: String) async {
+        do {
+            self.user = try await UserService.shared.fetchProfile(documentId: userId)
+        } catch {
+            print("Error fetching user: \(error)")
+        }
+    }
+    
+    func fetchUserImg(_ userId: String) async {
+        do {
+            self.userImg = try await UserService.shared.fetchProfileImage(documentId: userId)
+        } catch {
+            print("Error fetching user image: \(error)")
+        }
+    }
+
     func fetchComments() {}
     
     func fetchPostImages() {}
