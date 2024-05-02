@@ -69,7 +69,7 @@ struct StreamView: View {
                             .bold()
                             .padding(.horizontal)
                             .padding(.vertical, 8)
-                            .background(Color.blue)
+                            .background(Color.green)
                             .foregroundColor(.white)
                             .clipShape(Capsule())
                     }.offset(x: CGFloat(-110.0),
@@ -82,23 +82,22 @@ struct StreamView: View {
 
 struct PostPreView: View {
     var post: Post
+    var age: Int {
+        let diffs = Calendar.current.dateComponents([.hour, .minute], from: Date(), to: post.timestamp)
+        return diffs.hour ?? 0
+    }
     
     var body: some View {
         VStack{
             HStack(alignment: .center){
                 Text("Someone posted this")
                 Text(post.type)
-                Text("\(calculateDuration(now: Date(), date: post.timestamp)) hours ago")
+                Text("\(age) hours ago")
             }
-            NavigationLink(destination: PostView(post: post)){
+            NavigationLink(destination: PostView(post: post, age: age)){
                 Label("Check Detail", systemImage: "arrowshape.right.circle")
             }
         }
-    }
-    
-    func calculateDuration(now: Date, date: Date) -> Int {
-        let diffs = Calendar.current.dateComponents([.hour, .minute], from: now, to: date)
-        return diffs.hour ?? 0
     }
 }
 
@@ -122,7 +121,7 @@ struct MenuBarView: View {
             }
             Spacer()
         }
-        .background(Color.gray)
+        .background(Color.app)
     }
     
     func search(_ hour: Int) {
@@ -132,7 +131,7 @@ struct MenuBarView: View {
             Post(id: "second", userId: "cde", timestamp: Date(), likes: 0, content: "no", type: "alert", location: CLLocationCoordinate2D(latitude: 37.784951824864464, longitude: -122.40220161414518), imageUrl: [], commentId: []),
             Post(id: "third", userId: "def", timestamp: Date(), likes: 0, content: "yes", type: "review", location: CLLocationCoordinate2D(latitude: 37.78930690593879, longitude: -122.39700979660641), imageUrl: [], commentId: []),
             Post(id: "forth", userId: "efg", timestamp: Date(), likes: 0, content: "yes", type: "event", location: CLLocationCoordinate2D(latitude: 37.77949484957832, longitude: -122.41768564428206), imageUrl: [], commentId: []),
-            Post(id: "fifth", userId: "efg", timestamp: Date(), likes: 0, content: "yes", type: "event", location: CLLocationCoordinate2D(latitude: 37.3323916038548, longitude: -122.00604306620986), imageUrl: [], commentId: []),
+            Post(id: "fifth", userId: "q5m1AGTK84owC1KShCEt", timestamp: Date(), likes: 0, content: "yes", type: "event", location: CLLocationCoordinate2D(latitude: 37.3323916038548, longitude: -122.00604306620986), imageUrl: [], commentId: []),
         ]
     }
 }
