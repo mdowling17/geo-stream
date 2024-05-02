@@ -20,13 +20,35 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
 
     func requestLocation() {
+        if self.manager.authorizationStatus == .notDetermined {
+            self.manager.requestWhenInUseAuthorization()
+        }
         manager.requestLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
     }
 }
+
+//@MainActor
+//class LocationManager: ObservableObject {
+//    static let shared = LocationManager()
+//    private let manager: CLLocationManager
+//    
+//    init() {
+//        self.manager = CLLocationManager()
+//    }
+//    
+//    func startLocationUpdate() {
+//        if self.manager.authorizationStatus == .notDetermined {
+//            self.manager.requestWhenInUseAuthorization()
+//        }
+//    }
+//}
 
 
 

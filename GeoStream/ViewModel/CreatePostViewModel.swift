@@ -15,7 +15,7 @@ class CreatePostViewModel: ObservableObject {
     func createPost(content: String, type: String) {
         locationManager.requestLocation()
         if let location = locationManager.location {
-            service.addPost(content: content, latitude: location.latitude, longitude: location.longitude, type: type) { success in
+            service.addPost(content: content, location: location, type: type) { success in
                 if success {
                     self.didUploadPost = true
                 } else {
