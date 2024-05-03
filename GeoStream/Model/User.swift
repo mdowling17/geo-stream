@@ -13,6 +13,16 @@ struct User: Identifiable, Codable {
     let email: String
     let displayName: String?
     let description: String?
+    let photoURL: String?
+    let friends: [User]
+    
+    func getPhotoURL() -> URL? {
+        guard let photoURL = photoURL else {
+            return nil
+        }
+        print("[DEBUG INFO] User:\(displayName ?? ""):getPhotoURL() photoURL: \(photoURL)")
+        return URL(string: photoURL)
+    }
 }
 
 extension User {
