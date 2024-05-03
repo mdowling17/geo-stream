@@ -28,14 +28,9 @@ class ProfileEditViewModel: ObservableObject {
     }
     
     func saveProfile() {
-        guard let currentUser = AuthService.shared.currentUser else { return }
-        let documentId = currentUser.uid
-        let email = currentUser.email ?? ""
-        let newUser = User(id: documentId, email: email, displayName: displayName, description: description)
-        
         Task {
             do {
-                try await UserService.shared.saveProfile(documentId: documentId, newUser: newUser, image: image)
+                try await UserService.shared.saveProfile(displayName: displayName, description: description, image: image)
                 saveProfileMessage = "Profile saved successfully"
                 saveProfileMessageColor = .app
             } catch {
@@ -62,7 +57,6 @@ class ProfileEditViewModel: ObservableObject {
                 saveProfileMessageColor = .red
             }
         }
-
     }
     
     func signOut() {
