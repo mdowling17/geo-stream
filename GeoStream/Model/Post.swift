@@ -18,6 +18,10 @@ struct Post: Identifiable, Hashable {
     let content: String
     let type: String
     let location: CLLocationCoordinate2D
+    let address: String
+    let city: String
+    let country: String
+    let title: String
     let imageUrl: [String]
     let commentId: [String]
     
@@ -30,7 +34,11 @@ struct Post: Identifiable, Hashable {
              type,
              location,
              imageUrl,
-             commentId
+             commentId,
+             address,
+             city,
+             country,
+             title
     }
     
     func hash(into hasher: inout Hasher) {
@@ -40,6 +48,13 @@ struct Post: Identifiable, Hashable {
     
     static func == (lhs: Post, rhs: Post) -> Bool {
         return lhs.id == rhs.id && lhs.userId == rhs.userId
+    }
+    
+    func getFirstPhotoURL() -> URL? {
+        guard let photoURL = imageUrl.first else {
+            return nil
+        }
+        return URL(string: photoURL)
     }
 }
 
@@ -57,6 +72,10 @@ extension Post: Encodable {
         // Convert CLLocationCoordinate2D to GeoPoint and encode it
         let geoPoint = GeoPoint(latitude: location.latitude, longitude: location.longitude)
         try container.encode(geoPoint, forKey: .location)
+        try container.encode(address, forKey: .address)
+        try container.encode(city, forKey: .city)
+        try container.encode(country, forKey: .country)
+        try container.encode(title, forKey: .title)
     }
 }
 
@@ -74,5 +93,9 @@ extension Post: Decodable {
         // Decode GeoPoint and convert it to CLLocationCoordinate2D
         let geoPoint = try container.decode(GeoPoint.self, forKey: .location)
         location = CLLocationCoordinate2D(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
+        address = try container.decode(String.self, forKey: .address)
+        city = try container.decode(String.self, forKey: .city)
+        country = try container.decode(String.self, forKey: .country)
+        title = try container.decode(String.self, forKey: .title)
     }
 }

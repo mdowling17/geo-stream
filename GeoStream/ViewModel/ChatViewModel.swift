@@ -77,6 +77,7 @@ class ChatViewModel: ObservableObject {
                 photoURL = user.photoURL
                 print("[DEBUG] ChatViewModel:fetchUserDetails() user: \(user.photoURL ?? "")")
                 friends = user.friends
+                //TODO: get rid of this hardcoded friend
                 friends.append(User(id: "1", email: "test2@gmail.com", displayName: "testuser1", description: "first tester", photoURL: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/220px-Original_Doge_meme.jpg", friends: []))
                 print("[DEBUG] ChatViewModel:fetchUserDetails() friends: \(friends)")
             } catch {
