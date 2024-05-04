@@ -12,6 +12,9 @@ struct ChatView: View {
 
     var body: some View {
         NavigationStack {
+            Text("Messages")
+                .font(.title)
+                .padding()
             ZStack {
                 FriendsListView().environmentObject(chatVM)
             }

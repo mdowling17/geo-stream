@@ -19,7 +19,8 @@ struct ContentView: View {
                 .tabItem {
                     Label("Chat", systemImage: "message")
                 }
-            ProfileEditView()
+                            
+            ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

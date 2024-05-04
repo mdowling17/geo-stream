@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 import FirebaseStorage
+import FirebaseCore
+import FirebaseFirestore
 
 enum UserServiceError: Error {
     case UserNotSignedInError
@@ -33,7 +35,7 @@ struct UserService {
             if let image = image {
                 photoURL = try await uploadProfileImage(documentId: documentId, image: image)
             }
-            let newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: photoURL, friends: [])
+            let newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: photoURL, followers: [], following: [], favPost: [])
             try db.collection(User.collectionName).document(documentId).setData(from: newUser)
             
         } catch {
@@ -68,7 +70,6 @@ struct UserService {
             print("[DEBUG ERROR] UserService:uploadProfileImage() error: \(error.localizedDescription)")
             throw error
         }
-        
     }
     
     
@@ -83,5 +84,28 @@ struct UserService {
             throw error
         }
     }
+}
 
+extension UserService {
+    func followUser(_ otherUser: String) async {
+        // curUserId follows otherUser
+        guard let curUserId = AuthService.shared.currentUser?.uid else {return}
+        do {
+            try await db.collection("users").document(curUserId).updateData(["following": FieldValue.arrayUnion([otherUser])])
+            try await db.collection("users").document(otherUser).updateData(["follower": FieldValue.arrayUnion([curUserId])])
+        } catch {
+            print("Error following a user: \(error)")
+        }
+    }
+    
+    func unfollowUser(_ otherUser: String) async {
+        // curUserId unfollows otherUser
+        guard let curUserId = AuthService.shared.currentUser?.uid else {return}
+        do {
+            try await db.collection("users").document(curUserId).updateData(["following": FieldValue.arrayRemove([otherUser])])
+            try await db.collection("users").document(otherUser).updateData(["follower": FieldValue.arrayRemove([curUserId])])
+        } catch {
+            print("Error unfollowing a user: \(error)")
+        }
+    }
 }
