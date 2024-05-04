@@ -9,14 +9,14 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-struct User: Identifiable, Codable {
+struct User: Identifiable, Codable, Hashable, Equatable {
     @DocumentID var id: String? //UserId
     let email: String
     let displayName: String?
     let description: String?
     let photoURL: String?
-    let followers: [String] //UserId
-    let following: [String] //UserId
+    let followerIds: [String] //UserId
+    let followingIds: [String] //UserId
     let favPost: [String] //PostId
     
     func getPhotoURL() -> URL? {
@@ -25,6 +25,11 @@ struct User: Identifiable, Codable {
         }
         print("[DEBUG INFO] User:\(displayName ?? ""):getPhotoURL() photoURL: \(photoURL)")
         return URL(string: photoURL)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(email)
     }
 }
 

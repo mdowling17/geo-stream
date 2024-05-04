@@ -15,8 +15,9 @@ struct PostImageView: View {
         GeometryReader { geometry in
             ZStack(alignment: .bottomTrailing) {
                 if let photoURL = post.getFirstPhotoURL() {
-                    WebImage(url: photoURL)
+                    AnimatedImage(url: photoURL)
                         .resizable()
+                        .indicator(.activity)
                 }
                 MapPinView(type: post.type)
                     .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.5)

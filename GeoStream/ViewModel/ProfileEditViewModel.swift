@@ -13,6 +13,7 @@ import FirebaseStorage
 @MainActor
 class ProfileEditViewModel: ObservableObject {
     @Published var image: UIImage?
+    @Published var photoURL: String?
     @Published var isConfirmationDialogPresented: Bool = false
     @Published var isImagePickerPresented: Bool = false
     @Published var sourceType: SourceType = .camera
@@ -50,7 +51,9 @@ class ProfileEditViewModel: ObservableObject {
                 let user = try await UserService.shared.fetchProfile(documentId: documentId)
                 displayName = user.displayName ?? ""
                 description = user.description ?? ""
-                image = try await UserService.shared.fetchProfileImage(documentId: documentId)
+                //TODO: make sure this works
+//                image = try await UserService.shared.fetchProfileImage(documentId: documentId)
+                photoURL = user.photoURL
             } catch {
                 print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)")
                 saveProfileMessage = error.localizedDescription

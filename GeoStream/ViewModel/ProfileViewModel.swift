@@ -15,6 +15,7 @@ class ProfileViewModel: ObservableObject {
     @Published var description: String = ""
     @Published var email: String = ""
     @Published var signOutMessage: String? = nil
+    @Published var photoURL: String?
     
     init() {
         fetchProfile()
@@ -29,7 +30,9 @@ class ProfileViewModel: ObservableObject {
                 displayName = user.displayName ?? ""
                 description = user.description ?? ""
                 email = user.email
-                image = try await UserService.shared.fetchProfileImage(documentId: documentId)
+                photoURL = user.photoURL
+                //TODO: make sure this works, then delete
+//                image = try await UserService.shared.fetchProfileImage(documentId: documentId)
             } catch {
                 print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)")
             }

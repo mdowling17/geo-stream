@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class SignUpViewModel: ObservableObject {
     @Published var email = ""
     @Published var password = ""

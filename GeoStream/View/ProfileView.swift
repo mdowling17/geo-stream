@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ProfileView: View {
     @StateObject private var profileVM = ProfileViewModel()
@@ -24,6 +25,15 @@ struct ProfileView: View {
                                 .cornerRadius (64)
                                 .overlay(RoundedRectangle(cornerRadius: 64)
                                     .stroke(Color.black, lineWidth:3))
+                        } else if let photoURL = profileVM.photoURL, let url = URL(string: photoURL) {
+                            AnimatedImage(url: url)
+                                .resizable()
+                                .indicator(.activity)
+                                .scaledToFill()
+                                .frame(width: 100, height: 100)
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                                .shadow(radius: 10)
                         } else {
                             Image(systemName: "person.fill")
                                 .font(.system(size:64))

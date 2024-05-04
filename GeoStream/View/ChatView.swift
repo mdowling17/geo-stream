@@ -16,7 +16,7 @@ struct ChatView: View {
                 .font(.title)
                 .padding()
             ZStack {
-                FriendsListView().environmentObject(chatVM)
+                FollowersListView().environmentObject(chatVM)
             }
         }
         .fullScreenCover(isPresented: $chatVM.showIndividualChat) {

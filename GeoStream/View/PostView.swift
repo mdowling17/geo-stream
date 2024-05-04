@@ -102,7 +102,7 @@ extension PostView {
 
 #Preview {
     PostView(post: Post(id: "1",
-                        userId: "q5m1AGTK84owC1KShCEt",
+                        userId: "1",
                         timestamp: Date(),
                         likes: 0,
                         content: "love this app",
@@ -110,6 +110,6 @@ extension PostView {
                         location: CLLocationCoordinate2D(latitude: 37.78815531914898, longitude: -122.40754586877463),
                         address: "San Francisco", city: "San Francisco", country: "USA", title: "Downtown SF Party",
                         imageUrl: [],
-                        commentId: []),
+                        commentIds: []),
              age: 10)
 }

@@ -35,7 +35,7 @@ struct UserService {
             if let image = image {
                 photoURL = try await uploadProfileImage(documentId: documentId, image: image)
             }
-            let newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: photoURL, followers: [], following: [], favPost: [])
+            let newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: photoURL, followerIds: [], followingIds: [], favPost: [])
             try db.collection(User.collectionName).document(documentId).setData(from: newUser)
             
         } catch {
@@ -91,8 +91,8 @@ extension UserService {
         // curUserId follows otherUser
         guard let curUserId = AuthService.shared.currentUser?.uid else {return}
         do {
-            try await db.collection("users").document(curUserId).updateData(["following": FieldValue.arrayUnion([otherUser])])
-            try await db.collection("users").document(otherUser).updateData(["follower": FieldValue.arrayUnion([curUserId])])
+            try await db.collection("users").document(curUserId).updateData(["followingIds": FieldValue.arrayUnion([otherUser])])
+            try await db.collection("users").document(otherUser).updateData(["followerIds": FieldValue.arrayUnion([curUserId])])
         } catch {
             print("Error following a user: \(error)")
         }
@@ -102,8 +102,8 @@ extension UserService {
         // curUserId unfollows otherUser
         guard let curUserId = AuthService.shared.currentUser?.uid else {return}
         do {
-            try await db.collection("users").document(curUserId).updateData(["following": FieldValue.arrayRemove([otherUser])])
-            try await db.collection("users").document(otherUser).updateData(["follower": FieldValue.arrayRemove([curUserId])])
+            try await db.collection("users").document(curUserId).updateData(["followingIds": FieldValue.arrayRemove([otherUser])])
+            try await db.collection("users").document(otherUser).updateData(["followerIds": FieldValue.arrayRemove([curUserId])])
         } catch {
             print("Error unfollowing a user: \(error)")
         }

@@ -15,5 +15,8 @@ struct Comment: Identifiable, Codable {
     let content: String
     let timestamp: Date
     let userId: String // poster
+}
 
+extension Comment {
+    static let collectionName = "comments"
 }

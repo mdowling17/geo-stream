@@ -15,7 +15,7 @@ class ChatViewModel: ObservableObject {
     @Published var errorMessage = ""
     @Published var toUserId = ""
     @Published var photoURL: String?
-    @Published var friends: [User] = []
+    @Published var followers: [User] = []
     @Published var showIndividualChat = false
     var subscribers: Set<AnyCancellable> = []
     
@@ -76,10 +76,11 @@ class ChatViewModel: ObservableObject {
                 let user = try await UserService.shared.fetchProfile(documentId: documentId)
                 photoURL = user.photoURL
                 print("[DEBUG] ChatViewModel:fetchUserDetails() user: \(user.photoURL ?? "")")
-                friends = user.friends
-                //TODO: get rid of this hardcoded friend
-                friends.append(User(id: "1", email: "test2@gmail.com", displayName: "testuser1", description: "first tester", photoURL: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/220px-Original_Doge_meme.jpg", friends: []))
-                print("[DEBUG] ChatViewModel:fetchUserDetails() friends: \(friends)")
+                //TODO: dynamically fetch followers
+//                followers = user.followerIds
+                //TODO: get rid of this hardcoded follower
+                followers.append(User(id: "1", email: "test2@gmail.com", displayName: "testuser1", description: "first tester", photoURL: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/220px-Original_Doge_meme.jpg", followerIds: [], followingIds: [], favPost: []))
+                print("[DEBUG] ChatViewModel:fetchUserDetails() followers: \(followers)")
             } catch {
                 print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)")
                 errorMessage = error.localizedDescription
