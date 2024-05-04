@@ -16,8 +16,11 @@ struct PostDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                imageSection
-                    .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 10)
+                if let _ = post.getFirstPhotoURL() {
+                    imageSection
+                        .shadow(color: Color.black.opacity(0.3), radius: 20, x: 0, y: 10)
+                        .frame(height: 500)
+                }
                 
                 VStack(alignment: .leading, spacing: 16) {
                     titleSection
@@ -49,8 +52,9 @@ extension PostDetailView {
         TabView {
             ForEach(post.imageUrl, id: \.self) {
                 if let photoURL = URL(string: $0) {
-                    WebImage(url: photoURL)
+                    AnimatedImage(url: photoURL)
                         .resizable()
+                        .indicator(.activity)
                         .scaledToFill()
                         .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
                         .clipped()
@@ -58,7 +62,6 @@ extension PostDetailView {
                 
             }
         }
-        .frame(height: 500)
         .tabViewStyle(PageTabViewStyle())
     }
     

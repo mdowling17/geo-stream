@@ -10,7 +10,11 @@ import FirebaseFirestoreSwift
 import FirebaseFirestore
 import CoreLocation
 
-struct Post: Identifiable, Hashable {
+struct Post: Identifiable, Equatable, Hashable {
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     @DocumentID var id: String?
     let userId: String
     let timestamp: Date
@@ -23,7 +27,7 @@ struct Post: Identifiable, Hashable {
     let country: String
     let title: String
     let imageUrl: [String]
-    let commentId: [String]
+    let commentIds: [String]
     
     enum CodingKeys: String, CodingKey {
         case id,
@@ -34,7 +38,7 @@ struct Post: Identifiable, Hashable {
              type,
              location,
              imageUrl,
-             commentId,
+             commentIds,
              address,
              city,
              country,
@@ -44,10 +48,6 @@ struct Post: Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(userId)
-    }
-    
-    static func == (lhs: Post, rhs: Post) -> Bool {
-        return lhs.id == rhs.id && lhs.userId == rhs.userId
     }
     
     func getFirstPhotoURL() -> URL? {
@@ -68,7 +68,7 @@ extension Post: Encodable {
         try container.encode(content, forKey: .content)
         try container.encode(type, forKey: .type)
         try container.encode(imageUrl, forKey: .imageUrl)
-        try container.encode(commentId, forKey: .commentId)
+        try container.encode(commentIds, forKey: .commentIds)
         // Convert CLLocationCoordinate2D to GeoPoint and encode it
         let geoPoint = GeoPoint(latitude: location.latitude, longitude: location.longitude)
         try container.encode(geoPoint, forKey: .location)
@@ -91,7 +91,7 @@ extension Post: Decodable {
         content = try container.decode(String.self, forKey: .content)
         type = try container.decode(String.self, forKey: .type)
         imageUrl = try container.decode([String].self, forKey: .imageUrl)
-        commentId = try container.decode([String].self, forKey: .commentId)
+        commentIds = try container.decode([String].self, forKey: .commentIds)
         // Decode GeoPoint and convert it to CLLocationCoordinate2D
         let geoPoint = try container.decode(GeoPoint.self, forKey: .location)
         location = CLLocationCoordinate2D(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
@@ -100,4 +100,8 @@ extension Post: Decodable {
         country = try container.decode(String.self, forKey: .country)
         title = try container.decode(String.self, forKey: .title)
     }
+}
+
+extension Post {
+    static let collectionName = "posts"
 }

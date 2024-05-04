@@ -32,6 +32,7 @@ class MapViewModel: ObservableObject {
     // Current location on map
     @Published var selectedPost: Post? {
         didSet {
+            showCreatePostButton = selectedPost == nil
             updateMapRegion(post: selectedPost)
         }
     }
@@ -45,6 +46,9 @@ class MapViewModel: ObservableObject {
     @Published var showPostList: Bool = false
     @Published var showSearchButton: Bool = true
     @Published var showSearchSettings: Bool = false
+    @Published var showCreatePost: Bool = false
+    @Published var showCreatePostButton: Bool = true
+
     // Show location detail via sheet
     @Published var openedPost: Post? = nil
     
@@ -73,7 +77,7 @@ class MapViewModel: ObservableObject {
             cameraPosition = MapCameraPosition.region(newMapRegion)
         }
     }
-    
+        
     func togglePostList() {
         withAnimation(.easeInOut) {
             showPostList.toggle()
@@ -204,8 +208,11 @@ class MapViewModel: ObservableObject {
     
     func filterPostsByLocation(targetPosts: [Post], newCoordinates: CLLocationCoordinate2D) -> [Post] {
         let newMapPoint = MKMapPoint(newCoordinates)
+        print("New Map Point Lat: \(newMapPoint.coordinate.latitude), Lon: \(newMapPoint.coordinate.longitude)")
         // Get the posts that are within 10 miles of the current location
         let nearbyPosts = posts.filter { post in
+            print("A point Lat: \(post.location.latitude), Lon: \(post.location.longitude)")
+
             let postMapPoint = MKMapPoint(post.location)
             let distance = newMapPoint.distance(to: postMapPoint)
             print("Distance: \(distance)")

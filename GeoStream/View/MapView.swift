@@ -30,12 +30,30 @@ struct MapView: View {
                 Spacer()
                 locationsPreviewStack
             }
+
+            if mapVM.showCreatePostButton {
+                Button(action: {
+                    mapVM.showCreatePost = true
+                    }) {
+                        Text("Create Post")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.app)
+                            .cornerRadius(10)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            }
         }
         .sheet(item: $mapVM.openedPost, onDismiss: nil) { post in
             PostDetailView(post: post).environmentObject(mapVM)
         }
         .sheet(isPresented: $mapVM.showSearchSettings) {
             SearchSettingsView().environmentObject(mapVM)
+        }
+        .sheet(isPresented: $mapVM.showCreatePost) {
+            CreatePostView().environmentObject(mapVM)
         }
     }
 }
