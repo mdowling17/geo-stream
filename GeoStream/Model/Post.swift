@@ -46,7 +46,7 @@ struct Post: Identifiable, Hashable {
 extension Post: Encodable {
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
+        try container.encodeIfPresent(id, forKey: .id)
         try container.encode(userId, forKey: .userId)
         try container.encode(timestamp, forKey: .timestamp)
         try container.encode(likes, forKey: .likes)
@@ -63,7 +63,9 @@ extension Post: Encodable {
 extension Post: Decodable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(String.self, forKey: .id)
+        
+        id = try container.decode(DocumentID<String>.self, forKey: .id).wrappedValue
+        
         userId = try container.decode(String.self, forKey: .userId)
         timestamp = try container.decode(Date.self, forKey: .timestamp)
         likes = try container.decode(Int.self, forKey: .likes)

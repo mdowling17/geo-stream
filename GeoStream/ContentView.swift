@@ -26,7 +26,7 @@ struct ContentView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
             
-            ProfileEditView()
+            ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }

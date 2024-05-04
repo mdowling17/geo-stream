@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		941ADFAC2BE28885006CABD0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 941ADFAB2BE28885006CABD0 /* FirebaseAuth */; };
+		946669072BE56DBC00A2CF76 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946669062BE56DBC00A2CF76 /* ProfileView.swift */; };
+		946669092BE56E3C00A2CF76 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946669082BE56E3C00A2CF76 /* ProfileViewModel.swift */; };
+		9466690B2BE583D400A2CF76 /* PostListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9466690A2BE583D400A2CF76 /* PostListView.swift */; };
+		9466690D2BE5841700A2CF76 /* PostListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9466690C2BE5841700A2CF76 /* PostListViewModel.swift */; };
 		94707BE52BDFDEE7009B0E2A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BE42BDFDEE7009B0E2A /* SignInView.swift */; };
 		947C89372BE3210500455335 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C89362BE3210500455335 /* PostView.swift */; };
 		947C89392BE32B4900455335 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C89382BE32B4900455335 /* PostViewModel.swift */; };
-		947C893B2BE32BB700455335 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C893A2BE32BB700455335 /* UserService.swift */; };
 		947C893D2BE3446B00455335 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C893C2BE3446B00455335 /* Comment.swift */; };
 		9482F53A2BE15371003B8B93 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F5392BE15371003B8B93 /* LocationManager.swift */; };
 		9482F53C2BE155AB003B8B93 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F53B2BE155AB003B8B93 /* PostService.swift */; };
@@ -101,10 +104,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		946669062BE56DBC00A2CF76 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		946669082BE56E3C00A2CF76 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		9466690A2BE583D400A2CF76 /* PostListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListView.swift; sourceTree = "<group>"; };
+		9466690C2BE5841700A2CF76 /* PostListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewModel.swift; sourceTree = "<group>"; };
 		94707BE42BDFDEE7009B0E2A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		947C89362BE3210500455335 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		947C89382BE32B4900455335 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
-		947C893A2BE32BB700455335 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		947C893C2BE3446B00455335 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		9482F5392BE15371003B8B93 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9482F53B2BE155AB003B8B93 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
@@ -327,6 +333,8 @@
 				C946A6302BE47B2B00F9B416 /* ChatView.swift */,
 				C946A63D2BE4C5E800F9B416 /* FriendsListView.swift */,
 				C946A6412BE4C8B900F9B416 /* IndividualChatView.swift */,
+				946669062BE56DBC00A2CF76 /* ProfileView.swift */,
+				9466690A2BE583D400A2CF76 /* PostListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -341,6 +349,8 @@
 				947C89382BE32B4900455335 /* PostViewModel.swift */,
 				C9A332922BE3306000FC1D43 /* ProfileEditViewModel.swift */,
 				C946A6362BE47D8C00F9B416 /* ChatViewModel.swift */,
+				946669082BE56E3C00A2CF76 /* ProfileViewModel.swift */,
+				9466690C2BE5841700A2CF76 /* PostListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -527,6 +537,7 @@
 				C946A6352BE47B6F00F9B416 /* MessageView.swift in Sources */,
 				C914F3542BE2A89D00B26DE2 /* ForgotPasswordView.swift in Sources */,
 				C914F3582BE2ACF800B26DE2 /* CustomTextField.swift in Sources */,
+				946669072BE56DBC00A2CF76 /* ProfileView.swift in Sources */,
 				C946A6312BE47B2B00F9B416 /* ChatView.swift in Sources */,
 				C9A3328D2BE2D17600FC1D43 /* GeoStreamApp.swift in Sources */,
 				C9A332972BE331E600FC1D43 /* ProfilePicPlaceholderView.swift in Sources */,
@@ -540,6 +551,7 @@
 				C9A332912BE31BCC00FC1D43 /* ProfileEditView.swift in Sources */,
 				C946A6392BE48B7900F9B416 /* MessageService.swift in Sources */,
 				C914F35C2BE2B3A300B26DE2 /* AppHeader.swift in Sources */,
+				946669092BE56E3C00A2CF76 /* ProfileViewModel.swift in Sources */,
 				C946A63E2BE4C5E800F9B416 /* FriendsListView.swift in Sources */,
 				C9D322952BE2CA380006DD8F /* User.swift in Sources */,
 				C99BF75B2BE268D10057DB4C /* SignInViewModel.swift in Sources */,
@@ -549,8 +561,9 @@
 				94ACC4712BE0493100A8C9BE /* SearchView.swift in Sources */,
 				C9D322942BE2CA380006DD8F /* Post.swift in Sources */,
 				9482F53E2BE16BF6003B8B93 /* CreatePostView.swift in Sources */,
-				94ACC46F2BE048F600A8C9BE /* ChatView.swift in Sources */,
 				947C893D2BE3446B00455335 /* Comment.swift in Sources */,
+				9466690B2BE583D400A2CF76 /* PostListView.swift in Sources */,
+				9466690D2BE5841700A2CF76 /* PostListViewModel.swift in Sources */,
 				9482F5402BE16C61003B8B93 /* CreatePostViewModel.swift in Sources */,
 				9482F53C2BE155AB003B8B93 /* PostService.swift in Sources */,
 				94ACC46D2BE0487100A8C9BE /* StreamView.swift in Sources */,
