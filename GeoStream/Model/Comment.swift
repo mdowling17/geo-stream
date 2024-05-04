@@ -14,4 +14,6 @@ struct Comment: Identifiable, Codable {
     let postId: String
     let content: String
     let timestamp: Date
+    let userId: String // poster
+
 }

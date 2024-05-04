@@ -10,12 +10,14 @@ import Firebase
 import FirebaseFirestore
 
 struct User: Identifiable, Codable {
-    @DocumentID var id: String?
+    @DocumentID var id: String? //UserId
     let email: String
     let displayName: String?
     let description: String?
     let photoURL: String?
-    let friends: [User]
+    let followers: [String] //UserId
+    let following: [String] //UserId
+    let favPost: [String] //PostId
     
     func getPhotoURL() -> URL? {
         guard let photoURL = photoURL else {

@@ -51,18 +51,102 @@ struct PostService {
         }
     }
     
-    func deletePost() {}
+    func deletePost(_ postId: String) async {
+        do {
+            try await db.collection("posts").document(postId).delete()
+        } catch {
+            print("Error removing post: \(error)")
+        }
+    }
     
-    func fetchPostByUserId(_ userId: String) {}
+    func fetchPostsByUserId(_ userId: String) async -> [Post] {
+        var posts = [Post]()
+        do {
+            let querySnapshot = try await db.collection("posts").whereField("userId", isEqualTo: userId).getDocuments()
+            for document in querySnapshot.documents {
+                posts.append( try document.data(as: Post.self) )
+            }
+        } catch {
+            print("Error fetching posts by UserId: \(error)")
+        }
+        return posts
+    }
     
     func fetchPostsByTime() {}
+}
+
+extension PostService {
+    func addComment(_ comment: Comment) {
+        do {
+            try db.collection("comments").document().setData(from: comment)
+        }
+        catch {
+            print("Error adding comment: \(error)")
+        }
+    }
     
-    func addComment() {}
+    func deleteComment(_ commentId: String) async {
+        do {
+          try await db.collection("comments").document(commentId).delete()
+        } catch {
+          print("Error deleting comment: \(error)")
+        }
+    }
     
-    func deleteComment() {}
+    func fetchComments(_ postId: String) async -> [Comment] {
+        var comments = [Comment]()
+        do {
+          let querySnapshot = try await db.collection("comments").whereField("postId", isEqualTo: postId).getDocuments()
+          for document in querySnapshot.documents {
+              comments.append( try document.data(as: Comment.self) )
+          }
+        } catch {
+            print("Error fetching documents: \(error)")
+        }
+        return comments
+    }
+}
+
+extension PostService {
+    func likePost(_ postId: String) {
+        guard let curUserId = AuthService.shared.currentUser?.uid else {return}
+        do {
+            try await db.collection("users").document(curUserId).updateData(["favPost": FieldValue.arrayUnion([postId])])
+        } catch {
+            print("Error like a post in firebase: \(error)")
+        }
+    }
     
-    func fetchComment(_ postId: String) {
-        
+    func unlikePost(_ postId: String) {
+        guard let curUserId = AuthService.shared.currentUser?.uid else {return}
+        do {
+            try await db.collection("users").document(curUserId).updateData(["favPost": FieldValue.arrayRemove([postId])])
+        } catch {
+            print("Error unlike a post in firebase: \(error)")
+        }
+    }
+    
+    
+    func fetchPostsIfLiked(_ postIds: [String]) async -> [Post] {
+        // up to 30 posts
+        var posts = [Post]()
+        do {
+            let querySnapshot = try await db.collection("posts").whereField(FieldPath.documentID(), in: postIds).getDocuments()
+            for document in querySnapshot.documents {
+                posts.append( try document.data(as: Post.self) )
+            }
+        } catch {
+            print("Error fetching liked posts: \(error)")
+        }
+        return posts
+    }
+    
+    func checkIsUserLikedPost(_ postId: String, completion: @escaping(Bool) -> Void) {
+        guard let curUserId = AuthService.shared.currentUser?.uid else {return}
+        db.collection("users").document(curUserId).getDocument { snapshot, _ in
+            guard let snapshot = snapshot else { return }
+            completion(snapshot.exists)
+        }
     }
     
 
