@@ -57,10 +57,10 @@ struct ProfileView: View {
                 }
                 
                 Section("Post") {
-                    NavigationLink(destination: PostListView()) {
+                    NavigationLink(destination: FavPostView()) {
                         Label("Favorite", systemImage: "heart")
                     }
-                    NavigationLink(destination: PostListView()) {
+                    NavigationLink(destination: HistoryPostView()) {
                         Label("History", systemImage: "archivebox")
                     }
                 }

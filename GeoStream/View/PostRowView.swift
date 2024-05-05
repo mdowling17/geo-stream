@@ -13,8 +13,11 @@ struct PostRowView: View {
     @StateObject var postRowVM: PostRowViewModel
     
     init(post: Post, user: User?) {
-        let age = Calendar.current.dateComponents([.hour], from: post.timestamp, to: Date()).hour ?? 0
-        _postRowVM = StateObject(wrappedValue: PostRowViewModel(post: post, user: user, age: age))
+        _postRowVM = StateObject(wrappedValue: PostRowViewModel(post: post, user: user))
+    }
+    
+    func getAge(time: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: time, to: Date()).hour ?? 0
     }
     
     var body: some View{
@@ -40,6 +43,9 @@ struct PostRowView: View {
                     HStack {
                         Text("@\(postRowVM.user?.displayName ?? "NA")")
                             .font(.subheadline).bold()
+                        Text("\(getAge(time: postRowVM.post.timestamp)) hours ago")
+                            .font(.caption)
+                            .foregroundColor(.gray)
                         Spacer()
                     }
                     Text(postRowVM.post.content)
@@ -47,14 +53,23 @@ struct PostRowView: View {
                         .multilineTextAlignment(.leading)
                 }
             }
-            ButtonsView(age: postRowVM.age).environmentObject(postRowVM)
             Divider()
-            
             if postRowVM.showComment {
-                CommentsView()
-                    .environmentObject(postRowVM)
+                VStack{
+                    ForEach(postRowVM.comments) { comment in
+                        HStack {
+                            Text("@\(comment.posterName)").bold()
+                            Text(comment.content)
+                            Spacer()
+                            Text("\(getAge(time: comment.timestamp)) hours ago")
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                        }
+                        Divider()
+                        
+                    }
+                }
             }
-            
         }
     }
 }

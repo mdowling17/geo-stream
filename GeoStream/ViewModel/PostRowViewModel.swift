@@ -13,13 +13,13 @@ class PostRowViewModel: ObservableObject {
     @Published var post: Post
     @Published var user: User?
     @Published var comments = [Comment]()
-    @Published var age: Int
+    @Published var isLiked: Bool?
     
-    init(post: Post, user: User?, age: Int) {
+    init(post: Post, user: User?) {
         self.post = post
         self.user = user
-        self.age = age
         fetchComments()
+        isPostLiked()
     }
     
     func toggleShowComment() {
@@ -30,13 +30,34 @@ class PostRowViewModel: ObservableObject {
         Task {
             do {
                 guard let postId = post.id else { return }
-                //let fetchedComments = try await CommentService.shared.fetchComments(postId)
                 let fetchedComments = await PostService.shared.fetchComments(postId)
                 comments = fetchedComments
-                print("[DEBUG] PostRowViewModel:fetchComments() comments: \(comments)")
+                //print("[DEBUG] PostRowViewModel:fetchComments() comments: \(comments)")
             } catch {
                 print("[DEBUG ERROR] PostRowViewModel:fetchComments() Error: \(error.localizedDescription)")
             }
         }
     }
+    
+    func isPostLiked() {
+        if let user = user, let id = post.id {
+            if user.favPost.contains(id) {
+                isLiked = true
+            } else {
+                isLiked = false
+            }
+        } else {return}
+    }
+    
+    func deletePost() {
+        Task {
+            if let id = post.id {
+                await PostService.shared.deletePost(id)
+            }
+        }
+    }
+    
+    func unlikePost() {}
+    
+    func likePost() {}
 }
