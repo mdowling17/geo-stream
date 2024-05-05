@@ -39,13 +39,6 @@ struct PostDetailView: View {
     }
 }
 
-struct PostDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostDetailView(post: PostService.mockPosts.first!)
-            .environmentObject(MapViewModel())
-    }
-}
-
 extension PostDetailView {
     
     private var imageSection: some View {

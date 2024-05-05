@@ -60,8 +60,7 @@ class MapViewModel: ObservableObject {
     
     init() {
         print("PostService.shared.addresses: \(PostService.shared.addresses)")
-        let posts = PostService.mockPosts
-        self.posts = posts
+        self.posts = []
                 
         // TODO: set this to the user's location
 //        self.updateMapRegion(post: posts.first!)

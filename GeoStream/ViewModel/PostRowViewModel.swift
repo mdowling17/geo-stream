@@ -30,7 +30,8 @@ class PostRowViewModel: ObservableObject {
         Task {
             do {
                 guard let postId = post.id else { return }
-                let fetchedComments = try await CommentService.shared.fetchComments(postId)
+                //let fetchedComments = try await CommentService.shared.fetchComments(postId)
+                let fetchedComments = await PostService.shared.fetchComments(postId)
                 comments = fetchedComments
                 print("[DEBUG] PostRowViewModel:fetchComments() comments: \(comments)")
             } catch {

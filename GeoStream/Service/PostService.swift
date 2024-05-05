@@ -7,8 +7,6 @@
 
 import Foundation
 import Firebase
-import GeoFire
-import GeoFireUtils
 import MapKit
 import CoreLocation
 import FirebaseStorage
@@ -21,51 +19,23 @@ struct PostService {
     static let shared = PostService()
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
-
-    private init() {
-        print("[DEBUG] PostService:init() mockPosts: \(PostService.mockPosts)")
-        getAddressAsync(location: PostService.mockPosts.first!.location)
-    }
-    static let mockPosts: [Post] = [
-        Post(id: "2", userId: "1", timestamp: Date(), likes: 12, content: "this is content", type: "event", location: CLLocationCoordinate2D(latitude: 37.78815531914898, longitude: -122.40754586877463), address: "San Francisco", city: "San Francisco", country: "USA", title: "Downtown SF Party", imageUrl: ["https://encrypted-tbn0.gstatic.com/licensed-image?q=tbn:ANd9GcTStT4ON9fBkjWLpniDZo0-UfkdjpUPgu2YgWd76yWevng-2wvVRgp3RXdBIzhkfxBvPQqfoqBDjXWVPncCoz1NYVXmbF_CbVsJgrAUuQ", "https://lh5.googleusercontent.com/p/AF1QipN0-mJ4M1ftzod1vtrdwMyE2fmmqxGdPxnvQMH4=w1188-h686-n-k-no"], commentIds: []),
-        Post(id: "1", userId: "1", timestamp: Date(), likes: 0, content: "peaking", type: "alert", location: CLLocationCoordinate2D(latitude: 37.784951824864464, longitude: -122.40220161414518), address: "San Francisco", city: "San Francisco", country: "USA", title: "Golden Gate Bridge", imageUrl: [], commentIds: []),
-        Post(id: "3", userId: "1", timestamp: Date(), likes: 0, content: "yes", type: "review", location: CLLocationCoordinate2D(latitude: 37.78930690593879, longitude: -122.39700979660641), address: "San Francisco", city: "San Francisco", country: "USA", title: "Backyard BBQ", imageUrl: [], commentIds: []),
-        Post(id: "4", userId: "1", timestamp: Date(), likes: 0, content: "yes", type: "event", location: CLLocationCoordinate2D(latitude: 37.77949484957832, longitude: -122.41768564428206), address: "San Francisco", city: "San Francisco", country: "USA", title: "Office Birthday Bash", imageUrl: [], commentIds: []),
-        Post(id: "5", userId: "1", timestamp: Date(), likes: 0, content: "yes", type: "alert", location: CLLocationCoordinate2D(latitude: 37.3323916038548, longitude: -122.00604306620986), address: "San Francisco", city: "San Francisco", country: "USA", title: "Road closed", imageUrl: [], commentIds: []),
-    ]
-    
     
     func addPost(content: String, location: CLLocationCoordinate2D, type: String, title: String, imageUrl: String) async throws {
-//        @DocumentID var id: String?
-//        let userId: String
-//        let timestamp: Date
-//        var likes: Int
-//        let content: String
-//        let type: String
-//        let location: CLLocationCoordinate2D
-//        let address: String
-//        let city: String
-//        let country: String
-//        let title: String
-//        let imageUrl: [String]
-//        let commentIds: [String]
         guard let uid = AuthService.shared.currentUser?.uid else {return}
-        let hash = GFUtils.geoHash(forLocation: location)
-
-        let data = [
-            "timestamp": Timestamp(date: Date()),
-            "likes": 0,
-            "content": content,
-            "type": type,
-            "location": hash,
-            "address": "",
-            "city": "",
-            "title": title,
-            "imageUrl": imageUrl,
-            "commentIds": []
-        ] as [String: Any]
+        let data = Post(userId: uid, 
+                        timestamp: Date(),
+                        likes: 0,
+                        content: content,
+                        type: type,
+                        location: location,
+                        address: "",
+                        city: "",
+                        country: "",
+                        title: title,
+                        imageUrl: [],
+                        commentIds: [])
         do {
-            let result = try await db.collection(Post.collectionName).addDocument(data: data)
+            let result = try await db.collection(Post.collectionName).document().setData(from: data)
             print("[DEBUG] PostService:addPost() result: \(result)")
         } catch {
             print("[DEBUG ERROR] PostService:addPost() error: \(error.localizedDescription)")
@@ -86,6 +56,10 @@ struct PostService {
         do {
             let querySnapshot = try await db.collection("posts").whereField("userId", isEqualTo: userId).getDocuments()
             for document in querySnapshot.documents {
+                do{ let doc = try document.data(as: Post.self)}
+                catch{
+                   print("hererer \(error)")
+                }
                 posts.append( try document.data(as: Post.self) )
             }
         } catch {
@@ -142,7 +116,7 @@ extension PostService {
               comments.append( try document.data(as: Comment.self) )
           }
         } catch {
-            print("Error fetching documents: \(error)")
+            print("Error fetching comments: \(error)")
         }
         return comments
     }

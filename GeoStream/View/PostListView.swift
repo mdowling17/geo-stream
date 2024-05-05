@@ -21,11 +21,12 @@ struct PostListView: View {
                             .padding()
                     }
                 }
-            }.task {
+            }
+            //.task {
                 //TODO: clean this up
                 //                postListVM.fetchPosts()
                 //                postListVM.fetchUser()
-            }
+            //}
             //            Button {
             //                print("New post")
             //                showNewPostView.toggle()

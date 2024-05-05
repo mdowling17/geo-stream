@@ -36,20 +36,8 @@ struct PostPreviewView: View {
     }
 }
 
-struct PostPreviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color.green.ignoresSafeArea()
-            
-            PostPreviewView(post: PostService.mockPosts.first!)
-                .padding()
-        }
-        .environmentObject(MapViewModel())
-    }
-}
 
 extension PostPreviewView {
-    
     private var imageSection: some View {
         ZStack {
             if let photoURL = post.getFirstPhotoURL() {
