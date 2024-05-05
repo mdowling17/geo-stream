@@ -27,7 +27,6 @@ struct HistoryPostView: View {
                 LazyVStack {
                     ForEach(postListVM.posts) { post in
                         PostRowView(post: post, user: postListVM.user)
-                            .padding()
                             .onTapGesture{
                                 postListVM.showSheet = true
                                 selectedPost = post
@@ -37,16 +36,15 @@ struct HistoryPostView: View {
             }
         }.sheet(isPresented: $postListVM.showSheet) {
             PostSheetView(post: selectedPost!, user: postListVM.user)
-        }
+        }.navigationTitle("Post History")
     }
 }
 
 struct PostSheetView: View {
-        // using same ViewModel class becasue most data displayed is identical
-        @StateObject var postRowVM: PostRowViewModel
+        @StateObject var postSheetVM: PostSheetViewModel
         
         init(post: Post, user: User?) {
-            _postRowVM = StateObject(wrappedValue: PostRowViewModel(post: post, user: user))
+            _postSheetVM = StateObject(wrappedValue: PostSheetViewModel(post: post, user: user))
         }
         
         func getAge(time: Date) -> Int {
@@ -54,41 +52,16 @@ struct PostSheetView: View {
         }
         
         var body: some View{
-            VStack {
-                HStack(alignment: .top, spacing: 20) {
-                    if let user = postRowVM.user, let photoURL = user.getPhotoURL() {
-                        AnimatedImage(url: photoURL)
-                            .resizable()
-                            .indicator(.activity)
-                            .frame(maxWidth: 56, maxHeight: 56)
-                            .scaledToFill()
-                            .clipShape(Circle())
-                            .padding(.bottom, 4)
-                    } else {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 56, height: 56)
-                            .foregroundColor(Color.green)
-                    }
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack {
-                            Text("@\(postRowVM.user?.displayName ?? "NA")")
-                                .font(.subheadline).bold()
-                            Spacer()
-                        }
-                        Text(postRowVM.post.content)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.leading)
-                    }
-                }
+            VStack(){
+                PostRowView(post: postSheetVM.post, user: postSheetVM.user)
                 mapLayer
-                ButtonsView//(age: postRowVM.age).environmentObject(postRowVM)
                 Divider()
-                if postRowVM.showComment {
+                ButtonsView
+                Divider()
+                
+                if postSheetVM.showComment {
                     VStack{
-                        ForEach(postRowVM.comments) { comment in
+                        ForEach(postSheetVM.comments) { comment in
                             HStack {
                                 Text("@\(comment.posterName)").bold()
                                 Text(comment.content)
@@ -111,35 +84,32 @@ extension PostSheetView {
     var ButtonsView: some View {
         HStack {
             Button {
-                postRowVM.toggleShowComment()
+                postSheetVM.toggleShowComment()
             } label: {
                 Image(systemName: "bubble.left")
                     .font(.subheadline)
+                    .foregroundColor(.gray)
             }
             
             Spacer()
-            HStack{
-                Image(systemName: postRowVM.isLiked ?? false ? "heart.fill" : "heart")
+            Button {
+                postSheetVM.isLiked ?? false ? postSheetVM.unlikePost() : postSheetVM.likePost()
+            } label: {
+                Image(systemName: postSheetVM.isLiked ?? false ? "heart.fill" : "heart")
                     .font(.subheadline)
-                    .foregroundColor(postRowVM.isLiked ?? false ? .red : .gray)
-                Text("\(postRowVM.post.likes)")
-                    .font(.caption)
+                    .foregroundColor(postSheetVM.isLiked ?? false ? .red : .gray)
+                Text("\(postSheetVM.post.likes)")
+                    .font(.subheadline)
                     .foregroundColor(.gray)
             }
-//            Button {
-//                postRowVM.isLiked ?? false ? postRowVM.unlikePost() : postRowVM.likePost()
-//            } label: {
-//                Image(systemName: postRowVM.isLiked ?? false ? "heart.fill" : "heart")
-//                    .font(.subheadline)
-//                    .foregroundColor(postRowVM.isLiked ?? false ? .red : .gray)
-//            }
             
+            Spacer()
             Button {
-                postRowVM.deletePost()
+                postSheetVM.deletePost()
             } label: {
                 Image(systemName: "trash")
                     .font(.subheadline)
-                    .foregroundColor(postRowVM.isLiked ?? false ? .red : .gray)
+                    .foregroundColor(.gray)
             }
             
             Spacer()
@@ -147,20 +117,20 @@ extension PostSheetView {
                 Image(systemName: "clock")
                     .font(.subheadline)
                     .foregroundColor(.gray)
-                Text("\(getAge(time: postRowVM.post.timestamp)) hours ago")
-                    .font(.caption)
+                Text("\(getAge(time: postSheetVM.post.timestamp)) hours ago")
+                    .font(.subheadline)
                     .foregroundColor(.gray)
             }
-        }
+        }.frame(width: 365)
     }
     
     private var mapLayer: some View {
         Map(coordinateRegion: .constant(MKCoordinateRegion(
-            center: postRowVM.post.location,
+            center: postSheetVM.post.location,
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))),
-            annotationItems: [postRowVM.post]) { post in
+            annotationItems: [postSheetVM.post]) { post in
             MapAnnotation(coordinate: post.location) {
-                MapPinView(type: postRowVM.post.type)
+                MapPinView(type: postSheetVM.post.type)
                     .frame(width: 50, height: 50)
                     .shadow(color: .app, radius: 10)
             }
