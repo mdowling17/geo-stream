@@ -79,7 +79,7 @@ class ChatViewModel: ObservableObject {
                 //TODO: dynamically fetch followers
 //                followers = user.followerIds
                 //TODO: get rid of this hardcoded follower
-                followers.append(User(id: "1", email: "test2@gmail.com", displayName: "testuser1", description: "first tester", photoURL: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/220px-Original_Doge_meme.jpg", followerIds: [], followingIds: [], favPost: []))
+                followers.append(User(id: "1", email: "test2@gmail.com", displayName: "testuser1", description: "first tester", photoURL: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/220px-Original_Doge_meme.jpg", followerIds: [], followingIds: [], likedPostIds: []))
                 print("[DEBUG] ChatViewModel:fetchUserDetails() followers: \(followers)")
             } catch {
                 print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)")

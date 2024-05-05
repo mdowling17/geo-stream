@@ -12,9 +12,61 @@ import SDWebImageSwiftUI
 import MapKit
 
 struct FavPostView: View {
+    @StateObject var favListVM = FavPostViewModel()
+    @State var selectedPost: Post?
+    
     var body: some View {
-        Text("placeholder ViewModel fetch Posts by [postId], view is mostly identical")
+        ZStack(alignment: .bottomTrailing) {
+            ScrollView {
+                LazyVStack {
+                    ForEach(favListVM.posts) { post in
+                        PostRowView(post: post, user: favListVM.user)
+                            .onTapGesture{
+                                favListVM.showSheet = true
+                                selectedPost = post
+                            }
+                    }
+                }
+            }
+        }.sheet(isPresented: $favListVM.showSheet) {
+            PostSheetView(post: selectedPost!, user: favListVM.user)
+        }.navigationTitle("Favorite History")
     }
+}
+
+@MainActor
+class FavPostViewModel: ObservableObject {
+    @Published var posts: [Post] = []
+    @Published var user: User?
+    @Published var showSheet: Bool = false
+    
+    init() {
+        fetchUser()
+        fetchPostDetails()
+        print("FavPostViewModel INIT CALLED")
+    }
+    
+    func fetchPostDetails() {
+        Task {
+            do {
+                let fetchedPosts = try await PostService.shared.fetchPostsByPostIds(user?.likedPostIds ?? [])
+                posts = fetchedPosts
+                print("fetchPostDetails CALLED \(posts)")
+            } catch {
+                print("[DEBUG ERROR] PostListViewModel:fetchPosts() Error: \(error.localizedDescription)")
+            }
+            
+        }
+    }
+    
+    func fetchUser() {
+        Task {
+            guard let userId = AuthService.shared.currentUser?.uid else { return }
+            let fetchedUser = try await UserService.shared.fetchProfile(documentId: userId)
+            user = fetchedUser
+        }
+    }
+    
 }
 
 struct HistoryPostView: View {

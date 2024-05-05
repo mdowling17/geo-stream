@@ -41,7 +41,7 @@ class PostSheetViewModel: ObservableObject {
     
     func isPostLiked() {
         if let user = user, let id = post.id {
-            if user.favPost.contains(id) {
+            if user.likedPostIds.contains(id) {
                 isLiked = true
             } else {
                 isLiked = false
@@ -60,8 +60,8 @@ class PostSheetViewModel: ObservableObject {
     func unlikePost() {
         isLiked?.toggle()
         if let user = user, let id = post.id {
-            if let index = user.favPost.firstIndex(of: id) {
-                self.user?.favPost.remove(at: index)
+            if let index = user.likedPostIds.firstIndex(of: id) {
+                self.user?.likedPostIds.remove(at: index)
             }
             Task {
                 try await PostService.shared.unlikePost(id)
@@ -72,7 +72,7 @@ class PostSheetViewModel: ObservableObject {
     func likePost() {
         isLiked?.toggle()
         if let user = user, let id = post.id {
-            self.user?.favPost.append(id)
+            self.user?.likedPostIds.append(id)
             Task {
                 try await PostService.shared.likePost(id)
             }
