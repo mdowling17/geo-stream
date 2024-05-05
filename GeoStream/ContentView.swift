@@ -11,25 +11,20 @@ struct ContentView: View {
     
     var body: some View {
         TabView {
-            StreamView()
+            MapView()
                 .tabItem {
-                    Label("Stream", systemImage: "globe")
+                    Label("Map", systemImage: "map")
                 }
-            
             ChatView()
                 .tabItem {
                     Label("Chat", systemImage: "message")
                 }
-            
-            SearchView()
-                .tabItem {
-                    Label("Search", systemImage: "magnifyingglass")
-                }
-            
-            ProfileEditView()
+                            
+            ProfileView()
                 .tabItem {
                     Label("Profile", systemImage: "person")
                 }
+
         }
     }
 }

@@ -16,10 +16,14 @@ struct GeoStreamApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if AuthService.shared.currentUser != nil {
-                ContentView()
+            if LocationService.shared.userIsSharingLocation {
+                if AuthService.shared.currentFirebaseUser != nil && AuthService.shared.currentUser != nil {
+                    ContentView()
+                } else {
+                    SignInView()
+                }
             } else {
-                SignInView()
+                RequestLocationView()
             }
         }
     }

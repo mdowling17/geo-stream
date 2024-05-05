@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import PhotosUI
+import SDWebImageSwiftUI
 
 struct ProfileEditView: View {
     @StateObject private var profileEditVM = ProfileEditViewModel()
@@ -19,6 +20,15 @@ struct ProfileEditView: View {
                 VStack {
                     if let image = profileEditVM.image {
                         CircleImageView(image: image)
+                    } else if let photoURL = profileEditVM.photoURL, let url = URL(string: photoURL) {
+                        AnimatedImage(url: url)
+                            .resizable()
+                            .indicator(.activity)
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                            .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                            .shadow(radius: 10)
                     } else {
                         ProfilePicPlaceholderView()
                     }

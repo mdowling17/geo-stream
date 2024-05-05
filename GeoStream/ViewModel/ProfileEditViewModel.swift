@@ -13,6 +13,7 @@ import FirebaseStorage
 @MainActor
 class ProfileEditViewModel: ObservableObject {
     @Published var image: UIImage?
+    @Published var photoURL: String?
     @Published var isConfirmationDialogPresented: Bool = false
     @Published var isImagePickerPresented: Bool = false
     @Published var sourceType: SourceType = .camera
@@ -34,7 +35,7 @@ class ProfileEditViewModel: ObservableObject {
                 saveProfileMessage = "Profile saved successfully"
                 saveProfileMessageColor = .app
             } catch {
-                print("[DEBUG ERROR] ProfileEditViewModel:saveProfile() Error: \(error.localizedDescription)")
+                print("[DEBUG ERROR] ProfileEditViewModel:saveProfile() Error: \(error.localizedDescription)\n")
                 saveProfileMessage = error.localizedDescription
                 saveProfileMessageColor = .red
             }
@@ -43,16 +44,18 @@ class ProfileEditViewModel: ObservableObject {
     
     func fetchProfile() {
         guard let currentUser = AuthService.shared.currentUser else { return }
-        let documentId = currentUser.uid
+        guard let documentId = currentUser.id else { return }
         
         Task {
             do {
-                let user = try await UserService.shared.fetchProfile(documentId: documentId)
+                let user = try await UserService.shared.fetchProfile(userId: documentId)
                 displayName = user.displayName ?? ""
                 description = user.description ?? ""
-                image = try await UserService.shared.fetchProfileImage(documentId: documentId)
+                //TODO: make sure this works
+//                image = try await UserService.shared.fetchProfileImage(documentId: documentId)
+                photoURL = user.photoURL
             } catch {
-                print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)")
+                print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)\n")
                 saveProfileMessage = error.localizedDescription
                 saveProfileMessageColor = .red
             }
@@ -63,7 +66,7 @@ class ProfileEditViewModel: ObservableObject {
         do {
             try AuthService.shared.signOut()
         } catch {
-            print("[DEBUG ERROR] ProfileEditViewModel:signOut() Error: \(error.localizedDescription)")
+            print("[DEBUG ERROR] ProfileEditViewModel:signOut() Error: \(error.localizedDescription)\n")
             signOutMessage = error.localizedDescription
             signOutMessageColor = .red
         }

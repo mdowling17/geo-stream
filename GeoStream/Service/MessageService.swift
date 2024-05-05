@@ -22,7 +22,7 @@ struct MessageService {
     
     func fetchChatMessages() async throws -> [Message] {
         do {
-            guard let currentUserId = AuthService.shared.currentUser?.uid else { throw MessageServiceError.UserNotSignedInError }
+            guard let currentUserId = AuthService.shared.currentUser?.id else { throw MessageServiceError.UserNotSignedInError }
             
             let querySnapshot =  db.collection(Message.collectionName).order(by: "createdAt", descending: false).whereFilter(Filter.orFilter([
                 Filter.whereField("fromUserId", isEqualTo: currentUserId), Filter.whereField("toUserId", isEqualTo: currentUserId)
@@ -32,14 +32,15 @@ struct MessageService {
                 .compactMap { try? $0.data(as: Message.self) }
             return messages
         } catch {
-            print("[DEBUG ERROR] MessageService:fetchChatMessages() error: \(error.localizedDescription)")
+            print("[DEBUG ERROR] MessageService:fetchChatMessages() error: \(error.localizedDescription)\n")
             throw error
         }
     }
     
+    //TODO: fix this data
     func sendChatMessage(toUserId: String?, text: String, photoURL: String?) async throws {
         guard let currentUser = AuthService.shared.currentUser else { throw MessageServiceError.UserNotSignedInError }
-        let fromUserId = currentUser.uid
+        let fromUserId = currentUser.id
         let photoURL = photoURL
         let createdAt = Date()
         let data = [
@@ -53,15 +54,15 @@ struct MessageService {
         do {
             
             let result = try await db.collection(Message.collectionName).addDocument(data: data)
-            print("[DEBUG] MessageService:sendChatMessage() result: \(result)")
+            print("[DEBUG] MessageService:sendChatMessage() result: \(result)\n")
         } catch {
-            print("[DEBUG ERROR] MessageService:sendChatMessage() error: \(error.localizedDescription)")
+            print("[DEBUG ERROR] MessageService:sendChatMessage() error: \(error.localizedDescription)\n")
             throw error
         }
     }
     
     func listenToMessagesDatabase() {
-        guard let currentUserId = AuthService.shared.currentUser?.uid else { return }
+        guard let currentUserId = AuthService.shared.currentUser?.id else { return }
         
         let querySnapshot =  db.collection(Message.collectionName).order(by: "createdAt", descending: false).whereFilter(Filter.orFilter([
             Filter.whereField("fromUserId", isEqualTo: currentUserId), Filter.whereField("toUserId", isEqualTo: currentUserId)
@@ -76,7 +77,7 @@ struct MessageService {
             let messages = querySnapshot.documents.compactMap { queryDocumentSnapshot -> Message? in
                 return try? queryDocumentSnapshot.data(as: Message.self)
             }
-            print("[DEBUG] MessageService:listenToMessagesDatabase() messages: \(messages)")
+            print("[DEBUG] MessageService:listenToMessagesDatabase() messages: \(messages)\n")
             self.messagePublisher.send(messages)
         }
     }
