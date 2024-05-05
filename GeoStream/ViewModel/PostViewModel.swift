@@ -15,9 +15,9 @@ class PostViewModel: ObservableObject {
     
     func fetchUser(_ userId: String) async {
         do {
-            self.user = try await UserService.shared.fetchProfile(documentId: userId)
+            self.user = try await UserService.shared.fetchProfile(userId: userId)
         } catch {
-            print("Error fetching user: \(error)")
+            print("Error fetching user: \(error)\n")
         }
     }
     
@@ -25,7 +25,7 @@ class PostViewModel: ObservableObject {
         do {
             self.userImg = try await UserService.shared.fetchProfileImage(documentId: userId)
         } catch {
-            print("Error fetching user image: \(error)")
+            print("Error fetching user image: \(error)\n")
         }
     }
 

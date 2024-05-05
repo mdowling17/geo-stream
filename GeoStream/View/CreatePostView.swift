@@ -12,10 +12,16 @@ import MapKit
 struct CreatePostView: View {
     var types = ["Event", "Alert", "Review"]
     @EnvironmentObject var mapVM: MapViewModel
-    @ObservedObject var createPostVM = CreatePostViewModel()
+    @StateObject var createPostVM = CreatePostViewModel()
     
     var body: some View {
         VStack {
+            EmptyView()
+                .onChange(of: createPostVM.newPost) {
+                    mapVM.selectedPost = createPostVM.newPost
+                    mapVM.showCreatePost = false
+                    mapVM.showPostList = false
+                }
             Spacer()
             HStack(spacing: 0){
                 if let user = createPostVM.user, let photoURL = user.getPhotoURL() {
@@ -93,23 +99,7 @@ struct CreatePostView: View {
                 Button {
                     if createPostVM.content.count > 0 {
                         createPostVM.createPost()
-                        mapVM.showCreatePost = false
-                        let id = UUID().uuidString
-                        let userId = createPostVM.user?.id ?? ""
-                        let timestamp = Date()
-                        let likes = 0
-                        let content = createPostVM.content
-                        let type = createPostVM.type
-                        let location = LocationManager().location ?? CLLocationCoordinate2D(latitude: 37.778008, longitude: -122.431272)
-                        let address = ""
-                        let city = ""
-                        let country = ""
-                        let title = createPostVM.title
-                        let imageUrl = [createPostVM.photoURL ?? ""]
-                        let commentIds = [String]()
-                        let newPost = Post(id: id, userId: userId, timestamp: timestamp, likes: likes, content: content, type: type, location: location, address: address, city: city, country: country, title: title, imageUrl: imageUrl, commentIds: commentIds)
-                        mapVM.posts.append(newPost)
-                        mapVM.selectedPost = newPost
+//                        mapVM.showCreatePost = false
                     }
                 } label: {
                     Image(systemName: "arrow.up")

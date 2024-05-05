@@ -12,7 +12,7 @@ struct MessageView: View {
     var message: Message
     
     var body: some View {
-        if message.fromUserId == AuthService.shared.currentUser?.uid {
+        if message.fromUserId == AuthService.shared.currentUser?.id {
             HStack(alignment: .bottom) {
                 HStack {
                     Text(message.text)

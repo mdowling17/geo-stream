@@ -32,6 +32,7 @@ struct SearchSettingsView: View {
                 }
             }
             .navigationTitle("Search Settings")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

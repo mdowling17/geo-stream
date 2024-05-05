@@ -16,7 +16,6 @@
 		947C89372BE3210500455335 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C89362BE3210500455335 /* PostView.swift */; };
 		947C89392BE32B4900455335 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C89382BE32B4900455335 /* PostViewModel.swift */; };
 		947C893D2BE3446B00455335 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947C893C2BE3446B00455335 /* Comment.swift */; };
-		9482F53A2BE15371003B8B93 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F5392BE15371003B8B93 /* LocationManager.swift */; };
 		9482F53C2BE155AB003B8B93 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F53B2BE155AB003B8B93 /* PostService.swift */; };
 		9482F53E2BE16BF6003B8B93 /* CreatePostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F53D2BE16BF6003B8B93 /* CreatePostView.swift */; };
 		9482F5402BE16C61003B8B93 /* CreatePostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9482F53F2BE16C61003B8B93 /* CreatePostViewModel.swift */; };
@@ -38,6 +37,11 @@
 		C92F377A2BE65A4E002E7E46 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F37792BE65A4E002E7E46 /* CommentsView.swift */; };
 		C92F377C2BE65CF6002E7E46 /* PostRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F377B2BE65CF6002E7E46 /* PostRowViewModel.swift */; };
 		C92F377E2BE6698A002E7E46 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F377D2BE6698A002E7E46 /* CommentService.swift */; };
+		C92F37802BE734D2002E7E46 /* RequestLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F377F2BE734D2002E7E46 /* RequestLocationView.swift */; };
+		C92F37822BE745EC002E7E46 /* MapSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F37812BE745EC002E7E46 /* MapSettingsView.swift */; };
+		C92F37842BE74620002E7E46 /* MapSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F37832BE74620002E7E46 /* MapSettings.swift */; };
+		C92F37862BE7543B002E7E46 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F37852BE7543B002E7E46 /* LocationService.swift */; };
+		C92F37882BE7DF41002E7E46 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92F37872BE7DF41002E7E46 /* PostDetailViewModel.swift */; };
 		C946A6312BE47B2B00F9B416 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A6302BE47B2B00F9B416 /* ChatView.swift */; };
 		C946A6332BE47B4C00F9B416 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A6322BE47B4C00F9B416 /* Message.swift */; };
 		C946A6352BE47B6F00F9B416 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A6342BE47B6F00F9B416 /* MessageView.swift */; };
@@ -123,7 +127,6 @@
 		947C89362BE3210500455335 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		947C89382BE32B4900455335 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 		947C893C2BE3446B00455335 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		9482F5392BE15371003B8B93 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9482F53B2BE155AB003B8B93 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		9482F53D2BE16BF6003B8B93 /* CreatePostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostView.swift; sourceTree = "<group>"; };
 		9482F53F2BE16C61003B8B93 /* CreatePostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostViewModel.swift; sourceTree = "<group>"; };
@@ -148,6 +151,11 @@
 		C92F37792BE65A4E002E7E46 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
 		C92F377B2BE65CF6002E7E46 /* PostRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRowViewModel.swift; sourceTree = "<group>"; };
 		C92F377D2BE6698A002E7E46 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		C92F377F2BE734D2002E7E46 /* RequestLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLocationView.swift; sourceTree = "<group>"; };
+		C92F37812BE745EC002E7E46 /* MapSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettingsView.swift; sourceTree = "<group>"; };
+		C92F37832BE74620002E7E46 /* MapSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSettings.swift; sourceTree = "<group>"; };
+		C92F37852BE7543B002E7E46 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		C92F37872BE7DF41002E7E46 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		C946A6302BE47B2B00F9B416 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		C946A6322BE47B4C00F9B416 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		C946A6342BE47B6F00F9B416 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
@@ -253,6 +261,7 @@
 				9482F53B2BE155AB003B8B93 /* PostService.swift */,
 				C9A3329C2BE33CC500FC1D43 /* UserService.swift */,
 				C92F377D2BE6698A002E7E46 /* CommentService.swift */,
+				C92F37852BE7543B002E7E46 /* LocationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -260,12 +269,12 @@
 		9482F5382BE15360003B8B93 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				9482F5392BE15371003B8B93 /* LocationManager.swift */,
 				C9A332942BE331B300FC1D43 /* CircleImageView.swift */,
 				C9A332962BE331E600FC1D43 /* ProfilePicPlaceholderView.swift */,
 				C9A332982BE3320C00FC1D43 /* CameraPicker.swift */,
 				C9A3329A2BE3323300FC1D43 /* PhotoLibraryPicker.swift */,
 				C946A6342BE47B6F00F9B416 /* MessageView.swift */,
+				C92F37832BE74620002E7E46 /* MapSettings.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -368,6 +377,8 @@
 				C92F37752BE659F0002E7E46 /* PostRowView.swift */,
 				C92F37772BE65A0F002E7E46 /* ButtonsView.swift */,
 				C92F37792BE65A4E002E7E46 /* CommentsView.swift */,
+				C92F377F2BE734D2002E7E46 /* RequestLocationView.swift */,
+				C92F37812BE745EC002E7E46 /* MapSettingsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -386,6 +397,7 @@
 				C99BF75A2BE268D10057DB4C /* SignInViewModel.swift */,
 				C914F3442BE271E600B26DE2 /* SignUpViewModel.swift */,
 				C92F377B2BE65CF6002E7E46 /* PostRowViewModel.swift */,
+				C92F37872BE7DF41002E7E46 /* PostDetailViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -578,10 +590,12 @@
 				C946A6312BE47B2B00F9B416 /* ChatView.swift in Sources */,
 				C9A3328D2BE2D17600FC1D43 /* GeoStreamApp.swift in Sources */,
 				C974451F2BE5368B0042D01F /* PostDetailView.swift in Sources */,
+				C92F37822BE745EC002E7E46 /* MapSettingsView.swift in Sources */,
 				C97445172BE52F6B0042D01F /* MapView.swift in Sources */,
 				C9FEBB652BE5E432007ADBF4 /* SearchSettingsView.swift in Sources */,
 				C92F377A2BE65A4E002E7E46 /* CommentsView.swift in Sources */,
 				C974451B2BE534CC0042D01F /* PostPreviewView.swift in Sources */,
+				C92F37862BE7543B002E7E46 /* LocationService.swift in Sources */,
 				C9A332972BE331E600FC1D43 /* ProfilePicPlaceholderView.swift in Sources */,
 				C914F3562BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift in Sources */,
 				C97445192BE52F790042D01F /* MapViewModel.swift in Sources */,
@@ -604,6 +618,7 @@
 				C9A3328F2BE2D18E00FC1D43 /* ContentView.swift in Sources */,
 				94707BE52BDFDEE7009B0E2A /* SignInView.swift in Sources */,
 				947C89372BE3210500455335 /* PostView.swift in Sources */,
+				C92F37842BE74620002E7E46 /* MapSettings.swift in Sources */,
 				94ACC4712BE0493100A8C9BE /* SearchView.swift in Sources */,
 				C9D322942BE2CA380006DD8F /* Post.swift in Sources */,
 				9482F53E2BE16BF6003B8B93 /* CreatePostView.swift in Sources */,
@@ -612,11 +627,12 @@
 				C92F377E2BE6698A002E7E46 /* CommentService.swift in Sources */,
 				9466690D2BE5841700A2CF76 /* PostListViewModel.swift in Sources */,
 				9482F5402BE16C61003B8B93 /* CreatePostViewModel.swift in Sources */,
+				C92F37882BE7DF41002E7E46 /* PostDetailViewModel.swift in Sources */,
 				9482F53C2BE155AB003B8B93 /* PostService.swift in Sources */,
 				C9A332992BE3320C00FC1D43 /* CameraPicker.swift in Sources */,
 				C946A6422BE4C8B900F9B416 /* IndividualChatView.swift in Sources */,
+				C92F37802BE734D2002E7E46 /* RequestLocationView.swift in Sources */,
 				C946A6372BE47D8C00F9B416 /* ChatViewModel.swift in Sources */,
-				9482F53A2BE15371003B8B93 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

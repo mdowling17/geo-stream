@@ -33,9 +33,9 @@ class PostRowViewModel: ObservableObject {
                 //let fetchedComments = try await CommentService.shared.fetchComments(postId)
                 let fetchedComments = await PostService.shared.fetchComments(postId)
                 comments = fetchedComments
-                print("[DEBUG] PostRowViewModel:fetchComments() comments: \(comments)")
+                print("[DEBUG] PostRowViewModel:fetchComments() comments: \(comments)\n")
             } catch {
-                print("[DEBUG ERROR] PostRowViewModel:fetchComments() Error: \(error.localizedDescription)")
+                print("[DEBUG ERROR] PostRowViewModel:fetchComments() Error: \(error.localizedDescription)\n")
             }
         }
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import MapKit
 
 @MainActor
 class CreatePostViewModel: ObservableObject {
@@ -21,59 +22,90 @@ class CreatePostViewModel: ObservableObject {
     @Published var lon: Double = 37.788155
     @Published var content: String = ""
     @Published var title: String = ""
-    @Published var type: String = "All"
-    let locationManager = LocationManager()
+    @Published var type: String = "Event"
+    
+    @Published var newPost: Post?
     
     init() {
         fetchUser()
-        getCoords()
+        setCoordinatesOnCurrentLocation()
     }
     
     func fetchUser() {
         Task {
             do {
-                guard let userId = AuthService.shared.currentUser?.uid else { return }
-                let fetchedUser = try await UserService.shared.fetchProfile(documentId: userId)
+                guard let userId = AuthService.shared.currentUser?.id else { return }
+                let fetchedUser = try await UserService.shared.fetchProfile(userId: userId)
                 user = fetchedUser
             } catch {
-                print(error.localizedDescription)
+                print("[DEBUG ERROR] CreatePostViewModel:fetchUser() Error: \(error.localizedDescription)\n")
             }
         }
     }
     
-    func uploadPhoto() {
-        Task {
-            do {
-                if let image = image {
-                    let url = await PostService.shared.uploadPhoto(documentId: user?.id ?? UUID().uuidString, image: image)
-                    photoURL = url
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
+    func uploadPhoto(userId: String, postId: String) async throws -> String {
+        do {
+            guard let image = image else { return "" }
+            let url = try await PostService.shared.uploadPhoto(userId: userId, image: image, postId: postId)
+            print("[DEBUG] CreatePostViewModel:uploadPhoto() URL: \(url)\n")
+            return url
+        } catch {
+            print("[DEBUG ERROR] CreatePostViewModel:uploadPhoto() Error: \(error.localizedDescription)\n")
+            return ""
         }
     }
     
-    func getCoords() {
-        locationManager.requestLocation()
-        if let location = locationManager.location {
-            lat = location.latitude
-            lon = location.longitude
+    //TODO: fix
+    func setCoordinatesOnCurrentLocation() {
+        if let userLocation = LocationService.shared.userLocation {
+            lat = userLocation.coordinate.latitude
+            lon = userLocation.coordinate.longitude
         }
     }
     
+    //TODO: fix
     func createPost() {
-        locationManager.requestLocation()
         Task {
             do {
-                if let location = locationManager.location {
-                    try await PostService.shared.addPost(content: content, location: location, type: type, title: title, imageUrl: photoURL ?? "")
-                    uploadPhoto()
-                }
+                guard let userId = AuthService.shared.currentUser?.id else { return }
+                let postId = UUID().uuidString
+                let photoURL = try await uploadPhoto(userId: userId, postId: UUID().uuidString)
+                let newPost = Post(
+                    id: postId,
+                    userId: userId,
+                    timestamp: Date(),
+                    likes: 0,
+                    content: content,
+                    type: type,
+                    location: CLLocationCoordinate2D(
+                        latitude: lat,
+                        longitude: lon
+                    ),
+                    address: "",
+                    city: "",
+                    country: "",
+                    title: "",
+                    imageUrl: [photoURL],
+                    commentIds: []
+                )
+                try PostService.shared.addPost(post: newPost, postId: postId)
+                self.newPost = newPost
             } catch {
-                print(error.localizedDescription)
+                print("[DEBUG ERROR] CreatePostViewModel:createPost() Error: \(error.localizedDescription)\n")
             }
         }
-        
+//        mapVM.posts.append(newPost)
+//        mapVM.selectedPost = newPost
+//        locationManager.requestLocation()
+//        Task {
+//            do {
+//                if let location = locationManager.location {
+//                    try await PostService.shared.addPost(content: content, location: location, type: type, title: title, imageUrl: photoURL ?? "")
+//                    uploadPhoto()
+//                }
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//        }
     }
 }

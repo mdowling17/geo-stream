@@ -16,7 +16,7 @@ class ForgotPasswordViewModel: ObservableObject {
             do {
                 try await AuthService.shared.resetPassword(email: email)
             } catch {
-                print("[DEBUG ERROR] ForgotPasswordViewModel:resetPassword() Error: \(error.localizedDescription)")
+                print("[DEBUG ERROR] ForgotPasswordViewModel:resetPassword() Error: \(error.localizedDescription)\n")
                 errorMessage = error.localizedDescription
             }
         }

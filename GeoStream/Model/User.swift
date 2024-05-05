@@ -17,13 +17,13 @@ struct User: Identifiable, Codable, Hashable, Equatable {
     let photoURL: String?
     let followerIds: [String] //UserId
     let followingIds: [String] //UserId
-    let favPost: [String] //PostId
+    let likedPostIds: [String] //PostId
     
     func getPhotoURL() -> URL? {
         guard let photoURL = photoURL else {
             return nil
         }
-        print("[DEBUG INFO] User:\(displayName ?? ""):getPhotoURL() photoURL: \(photoURL)")
+        print("[DEBUG INFO] User:\(displayName ?? ""):getPhotoURL() photoURL: \(photoURL)\n")
         return URL(string: photoURL)
     }
     

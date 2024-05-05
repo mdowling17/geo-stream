@@ -12,15 +12,18 @@ struct MapPinView: View {
     var systemImage: String = "info"
     
     init(type: String) {
-        if type == "event" {
+        if type == "Event" {
             systemImage = "calendar"
             accentColor = .orange
-        } else if type == "alert" {
+        } else if type == "Alert" {
             systemImage = "exclamationmark.circle"
             accentColor = .red
-        } else if type == "review" {
+        } else if type == "Review" {
             systemImage = "list.star"
             accentColor = .app
+        } else {
+            systemImage = "questionmark"
+            accentColor = .blue
         }
     }
         

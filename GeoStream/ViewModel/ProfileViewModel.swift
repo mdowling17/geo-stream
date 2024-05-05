@@ -23,10 +23,10 @@ class ProfileViewModel: ObservableObject {
     
     func fetchProfile() {
         guard let currentUser = AuthService.shared.currentUser else { return }
-        let documentId = currentUser.uid
+        guard let documentId = currentUser.id else { return }
         Task {
             do {
-                let user = try await UserService.shared.fetchProfile(documentId: documentId)
+                let user = try await UserService.shared.fetchProfile(userId: documentId)
                 displayName = user.displayName ?? ""
                 description = user.description ?? ""
                 email = user.email
@@ -34,7 +34,7 @@ class ProfileViewModel: ObservableObject {
                 //TODO: make sure this works, then delete
 //                image = try await UserService.shared.fetchProfileImage(documentId: documentId)
             } catch {
-                print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)")
+                print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)\n")
             }
         }
     }
@@ -43,7 +43,7 @@ class ProfileViewModel: ObservableObject {
         do {
             try AuthService.shared.signOut()
         } catch {
-            print("[DEBUG ERROR] ProfileEditViewModel:signOut() Error: \(error.localizedDescription)")
+            print("[DEBUG ERROR] ProfileEditViewModel:signOut() Error: \(error.localizedDescription)\n")
             signOutMessage = error.localizedDescription
         }
     }

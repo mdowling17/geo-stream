@@ -18,7 +18,7 @@ class SignInViewModel: ObservableObject {
             do {
                 try await AuthService.shared.signIn(email: email, password: password)
             } catch {
-                print("[DEBUG ERROR] SignInViewModel:signIn() Error: \(error.localizedDescription)")
+                print("[DEBUG ERROR] SignInViewModel:signIn() Error: \(error.localizedDescription)\n")
                 errorMessage = error.localizedDescription
             }
         }
