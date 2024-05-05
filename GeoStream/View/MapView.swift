@@ -49,38 +49,64 @@ struct MapView_Previews: PreviewProvider {
 extension MapView {
     private var header: some View {
         VStack {
-            //            HStack {
-            //                TextField("Search by address", text: $mapVM.searchQuery)
-            //                    .disableAutocorrection(true)
-            //                    .textInputAutocapitalization(.never)
-            //                    .padding(10)
-            //                    .background(Color(.systemGray6))
-            //                    .cornerRadius(8)
-            //
-            //                Button {
-            //                    mapVM.hitSearchButton()
-            //                } label: {
-            //                    if mapVM.showSearchButton {
-            //                        Image(systemName: "magnifyingglass")
-            //                            .foregroundColor(.gray)
-            //                    } else {
-            //                        Image(systemName: "xmark")
-            //                            .foregroundColor(.gray)
-            //                    }
-            //
-            //                }
-            //                .padding(.trailing, 4)
-            //
-            //                Button {
-            //                    mapVM.toggleSearchSettings()
-            //                } label: {
-            //                    Image(systemName: "gearshape.fill")
-            //                        .foregroundColor(.gray)
-            //                }
-            //                .padding(.trailing)
-            //            }
-            //            .background(Color(.systemGray6))
+//                        HStack {
+//                            TextField("Search by address", text: $mapVM.searchQuery)
+//                                .disableAutocorrection(true)
+//                                .textInputAutocapitalization(.never)
+//                                .padding(10)
+//                                .background(Color(.systemGray6))
+//                                .cornerRadius(8)
             
+//                            Button {
+                                //mapVM.hitSearchButton()
+//                            } label: {
+//                                if mapVM.showSearchButton {
+//                                    Image(systemName: "magnifyingglass")
+//                                        .foregroundColor(.gray)
+//                                } else {
+//                                    Image(systemName: "xmark")
+//                                        .foregroundColor(.gray)
+//                                }
+            
+//                            }
+//                            .padding(.trailing, 4)
+//            
+//                            Button {
+//                                mapVM.toggleSearchSettings()
+//                            } label: {
+//                                Image(systemName: "gearshape.fill")
+//                                    .foregroundColor(.gray)
+//                            }
+//                            .padding(.trailing)
+//                        }
+//                        .background(Color(.systemGray6))
+            TextField("Search address", text: $mapVM.searchQuery)
+                .textFieldStyle(.roundedBorder)
+                .autocorrectionDisabled()
+                .textInputAutocapitalization(.never)
+                .focused($searchFieldFocus)
+                .overlay(alignment: .trailing) {
+                    if searchFieldFocus {
+                        HStack {
+                            Button {
+                                mapVM.searchLocation()
+                            } label: {
+                                Image(systemName: "magnifyingglass")
+                                    .foregroundColor(.gray)
+                            }
+                            Button {
+                                mapVM.clearSearch()
+                                searchFieldFocus = false
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.app)
+                            }
+                            .padding(.trailing, 4)
+                        }
+                        
+                    }
+                }
+                .padding()
             
             Button(action: mapVM.togglePostList) {
                 HStack {
@@ -149,55 +175,28 @@ extension MapView {
             updateCameraPositionToSelectedPost()
         }
         .mapStyle(mapVM.mapSettings.mapStyle)
-        .safeAreaInset(edge: .bottom) {
-            VStack {
-                TextField("Search address", text: $mapVM.searchQuery)
-                    .textFieldStyle(.roundedBorder)
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
-                    .focused($searchFieldFocus)
-                    .overlay(alignment: .trailing) {
-                        if searchFieldFocus {
-                            HStack {
-                                Button {
-                                    mapVM.searchLocation()
-                                } label: {
-                                    Image(systemName: "magnifyingglass")
-                                        .foregroundColor(.gray)
-                                }
-                                Button {
-                                    mapVM.clearSearch()
-                                    searchFieldFocus = false
-                                } label: {
-                                    Image(systemName: "xmark.circle.fill")
-                                        .foregroundColor(.app)
-                                }
-                                .padding(.trailing, 4)
-                            }
-                            
-                        }
-                    }
-                    .padding()
-                
-                // Create Post
-                if mapVM.showCreatePostButton {
-                    Button(action: {
-                        mapVM.showCreatePost = true
-                        mapVM.showPostList = false
-                    }) {
-                        Text("Create Post")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.app)
-                            .cornerRadius(10)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .bottom)
-                }
-
-            }
-        }
+        
+        
+//        .safeAreaInset(edge: .bottom) {
+//            VStack {
+//                // Create Post
+//                if mapVM.showCreatePostButton {
+//                    Button(action: {
+//                        mapVM.showCreatePost = true
+//                        mapVM.showPostList = false
+//                    }) {
+//                        Text("Create Post")
+//                            .font(.headline)
+//                            .foregroundColor(.white)
+//                            .padding()
+//                            .background(Color.app)
+//                            .cornerRadius(10)
+//                    }
+//                    .padding()
+//                    .frame(maxWidth: .infinity, alignment: .bottom)
+//                }
+//            }
+//        }
         .safeAreaInset(edge: .top, alignment: .trailing) {
             VStack {
                 // Search Settings
@@ -236,13 +235,30 @@ extension MapView {
                     .mapControlVisibility(.visible)
                 MapPitchToggle(scope: mapScope)
                     .mapControlVisibility(.visible)
+                
+                // Create Post
+                if mapVM.showCreatePostButton {
+                    Button(action: {
+                        mapVM.showCreatePost = true
+                        mapVM.showPostList = false
+                    }) {
+                        Text("+")
+                            .bold()
+                            .font(.system(size: 20))
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .clipShape(.circle)
+                    }
+                    .frame(maxWidth: .infinity)
+                }
             }
             .padding()
             .buttonBorderShape(.circle)
+            .offset(CGSize(width: 150, height: 200))
         }
         .mapScope(mapScope)
     }
-    
     
     private var locationsPreviewStack: some View {
         ZStack {

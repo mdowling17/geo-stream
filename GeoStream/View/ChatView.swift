@@ -12,6 +12,39 @@ struct ChatView: View {
 
     var body: some View {
         NavigationStack {
+            
+//            HStack {
+//                TextField("Search users", text: $chatVM.searchQuery)
+//                    .disableAutocorrection(true)
+//                    .textInputAutocapitalization(.never)
+//                    .padding(10)
+//                    .background(Color(.systemGray6))
+//                    .cornerRadius(8)
+//
+//                Button {
+//                    chatVM.searchUsers()
+//                } label: {
+//                    if chatVM.showSearchButton {
+//                        Image(systemName: "magnifyingglass")
+//                            .foregroundColor(.gray)
+//                    } else {
+//                        Image(systemName: "xmark")
+//                            .foregroundColor(.gray)
+//                    }
+//
+//                }
+//                .padding(.trailing, 4)
+//
+//                Button {
+//                    chatVM.toggleSearchSettings()
+//                } label: {
+//                    Image(systemName: "gearshape.fill")
+//                        .foregroundColor(.gray)
+//                }
+//                .padding(.trailing)
+//            }
+//            .background(Color(.systemGray6))
+            
             Text("Messages")
                 .font(.title)
                 .padding()

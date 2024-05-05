@@ -26,6 +26,13 @@ struct PostDetailView: View {
                                     .scaledToFill()
                                     .frame(maxWidth: 50, maxHeight: 50)
                                     .clipShape(Circle())
+                                    .onTapGesture {
+                                        postDetailVM.showUserDetail.toggle()
+                                    }
+                                    .sheet(isPresented: $postDetailVM.showUserDetail) {
+                                        OtherProfileView(user: mapVM.postDetailUser!)
+                                    }
+                                
                             } else {
                                 ProfilePicPlaceholderView()
                             }
@@ -177,7 +184,6 @@ struct PostDetailView: View {
 }
 
 extension PostDetailView {
-    
     private var imageSection: some View {
         TabView {
             ForEach(post.imageUrl, id: \.self) {
