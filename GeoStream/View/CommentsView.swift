@@ -13,6 +13,7 @@ struct CommentsView: View {
     
     var body: some View {
         Text("Comments:")
+        Text("\(postRowVM.comments.isEmpty ? 1 : 0)")
         List(postRowVM.comments) { comment in
             Text(comment.content)
         }

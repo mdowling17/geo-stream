@@ -25,7 +25,3 @@ struct PostImageView: View {
         }
     }
 }
-
-#Preview {
-    PostImageView(post: PostService.mockPosts.first!)
-}
