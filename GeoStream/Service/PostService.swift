@@ -63,6 +63,22 @@ struct PostService {
         return posts
     }
     
+    func fetchPostsByPostIds(_ postIds: [String]) async -> [Post] {
+        if postIds.isEmpty {return []}
+        // up to 30 posts
+        var posts = [Post]()
+        do {
+            let querySnapshot = try await db.collection("posts").whereField(FieldPath.documentID(), in: postIds).getDocuments()
+            for document in querySnapshot.documents {
+                print("hererer \(document)")
+                posts.append( try document.data(as: Post.self) )
+            }
+        } catch {
+            print("Error fetching liked posts: \(error)")
+        }
+        return posts
+    }
+    
     func fetchPostsByTime() {}
     
     func uploadPhoto(userId: String, image: UIImage, postId: String) async throws -> String {
