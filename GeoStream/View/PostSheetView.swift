@@ -26,7 +26,7 @@ struct PostSheetView: View {
                 Divider()
                 ButtonsView
                 
-                if profileVM.showComments, let postId = post.id {
+                if let postId = post.id {
                     VStack {
                         Divider()
                         ForEach(profileVM.comments) { comment in
@@ -85,11 +85,15 @@ extension PostSheetView {
     var ButtonsView: some View {
         HStack {
             Button {
-                profileVM.toggleShowComments()
+                
             } label: {
-                Image(systemName: "bubble.left")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                HStack {
+                    Image(systemName: "bubble.left")
+                    Text("\(profileVM.posts.first(where: { $0.id == post.id })?.commentIds.count ?? 0)")
+                }
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.secondary)
             }
             
             Spacer()

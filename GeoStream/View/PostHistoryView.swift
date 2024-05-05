@@ -27,7 +27,7 @@ struct PostHistoryView: View {
                 }
             }
         }
-        .sheet(item: $profileVM.selectedPost, onDismiss: profileVM.toggleShowComments) { post in
+        .sheet(item: $profileVM.selectedPost, onDismiss: nil) { post in
             PostSheetView(post: post, user: profileVM.currentUser).environmentObject(profileVM)
         }
         .navigationTitle("Post History")

@@ -14,9 +14,7 @@ class ProfileViewModel: ObservableObject {
     // data
     @Published var selectedPost: Post?
     @Published var commentContent: String = ""
-    
-    //toggles
-    @Published var showComments = false
+
     
     // subscriptions
     var subscribers: Set<AnyCancellable> = []
@@ -43,10 +41,6 @@ class ProfileViewModel: ObservableObject {
         } catch {
             print("[DEBUG ERROR] ProfileEditViewModel:signOut() Error: \(error.localizedDescription)\n")
         }
-    }
-    
-    func toggleShowComments() {
-        showComments.toggle()
     }
     
     func toggleLikePost(postId: String?) {

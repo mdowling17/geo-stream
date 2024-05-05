@@ -49,7 +49,6 @@ class MapViewModel: ObservableObject {
     @Published var showSearchSettings: Bool = false
     @Published var showCreatePost: Bool = false
     @Published var showCreatePostButton: Bool = true
-    @Published var showComments: Bool = false
 
     // Show location detail via sheet
     @Published var openedPost: Post?
@@ -105,10 +104,6 @@ class MapViewModel: ObservableObject {
                 print("[DEBUG ERROR] MapViewModel:addComment() Error: \(error.localizedDescription)\n")
             }
         }
-    }
-    
-    func toggleComments() {
-        showComments.toggle()
     }
         
     func togglePostList() {

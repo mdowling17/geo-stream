@@ -98,14 +98,10 @@ struct PostDetailView: View {
                                 .frame(height: 20)
                             
                             Button {
-                                mapVM.toggleComments()
+
                             } label: {
                                 HStack {
-                                    if mapVM.showComments {
-                                        Image(systemName: "bubble.left.fill")
-                                    } else {
-                                        Image(systemName: "bubble.left")
-                                    }
+                                    Image(systemName: "bubble.left")
                                     Text("\(mapVM.posts.first(where: { $0.id == post.id })?.commentIds.count ?? 0)")
                                 }
                                 .font(.headline)
@@ -119,7 +115,7 @@ struct PostDetailView: View {
                     }
                     
                     descriptionSection
-                    if mapVM.showComments, let postId = post.id {
+                    if let postId = post.id {
                         VStack {
                             Divider()
                             ForEach(mapVM.comments) { comment in
