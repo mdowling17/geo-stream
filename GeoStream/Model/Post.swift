@@ -27,7 +27,7 @@ struct Post: Identifiable, Equatable, Hashable {
     let country: String
     let title: String
     let imageUrl: [String]
-    let commentIds: [String]
+    var commentIds: [String]
     
     enum CodingKeys: String, CodingKey {
         case id,

@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class PostRowViewModel: ObservableObject {
+class PostSheetViewModel: ObservableObject {
     @Published var showComment = false
     @Published var post: Post
     @Published var user: User?
@@ -46,7 +46,7 @@ class PostRowViewModel: ObservableObject {
             } else {
                 isLiked = false
             }
-        } else {return}
+        } else { return }
     }
     
     func deletePost() {
@@ -57,7 +57,25 @@ class PostRowViewModel: ObservableObject {
         }
     }
     
-    func unlikePost() {}
+    func unlikePost() {
+        isLiked?.toggle()
+        if let user = user, let id = post.id {
+            if let index = user.favPost.firstIndex(of: id) {
+                self.user?.favPost.remove(at: index)
+            }
+            Task {
+                try await PostService.shared.unlikePost(id)
+            }
+        }
+    }
     
-    func likePost() {}
+    func likePost() {
+        isLiked?.toggle()
+        if let user = user, let id = post.id {
+            self.user?.favPost.append(id)
+            Task {
+                try await PostService.shared.likePost(id)
+            }
+        }
+    }
 }
