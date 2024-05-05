@@ -374,12 +374,8 @@
 				C914F3482BE2734900B26DE2 /* SignUpView.swift */,
 				C92F37752BE659F0002E7E46 /* PostRowView.swift */,
 				C92F37772BE65A0F002E7E46 /* ButtonsView.swift */,
-<<<<<<< HEAD
-				C92F37792BE65A4E002E7E46 /* CommentsView.swift */,
 				C92F377F2BE734D2002E7E46 /* RequestLocationView.swift */,
 				C92F37812BE745EC002E7E46 /* MapSettingsView.swift */,
-=======
->>>>>>> brach_from_svm
 			);
 			path = View;
 			sourceTree = "<group>";
