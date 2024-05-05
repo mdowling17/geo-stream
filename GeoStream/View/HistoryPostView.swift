@@ -61,8 +61,8 @@ class FavPostViewModel: ObservableObject {
     
     func fetchUser() {
         Task {
-            guard let userId = AuthService.shared.currentUser?.uid else { return }
-            let fetchedUser = try await UserService.shared.fetchProfile(documentId: userId)
+            guard let userId = AuthService.shared.currentUser?.id else { return }
+            let fetchedUser = try await UserService.shared.fetchProfile(userId: userId)
             user = fetchedUser
         }
     }

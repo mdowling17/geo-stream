@@ -64,7 +64,7 @@ class PostSheetViewModel: ObservableObject {
                 self.user?.likedPostIds.remove(at: index)
             }
             Task {
-                try await PostService.shared.unlikePost(id)
+                try await PostService.shared.unlikePost(postId: id)
             }
         }
     }
@@ -74,7 +74,7 @@ class PostSheetViewModel: ObservableObject {
         if let user = user, let id = post.id {
             self.user?.likedPostIds.append(id)
             Task {
-                try await PostService.shared.likePost(id)
+                try await PostService.shared.likePost(postId: id)
             }
         }
     }
