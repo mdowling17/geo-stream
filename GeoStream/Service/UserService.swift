@@ -35,7 +35,7 @@ struct UserService {
             if let image = image {
                 photoURL = try await uploadProfileImage(documentId: documentId, image: image)
             }
-            let newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: photoURL, followerIds: [], followingIds: [], favPost: [])
+            let newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: photoURL, followerIds: [], followingIds: [], likedPostIds: [])
             try db.collection(User.collectionName).document(documentId).setData(from: newUser)
             
         } catch {

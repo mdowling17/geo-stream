@@ -17,7 +17,7 @@ struct User: Identifiable, Codable, Hashable, Equatable {
     let photoURL: String?
     var followerIds: [String] //UserId
     var followingIds: [String] //UserId
-    var favPost: [String] //PostId
+    var likedPostIds: [String] //PostId
     
     func getPhotoURL() -> URL? {
         guard let photoURL = photoURL else {
