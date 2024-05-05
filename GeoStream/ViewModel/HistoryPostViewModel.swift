@@ -9,9 +9,10 @@ import Foundation
 import SwiftUI
 
 @MainActor
-class PostListViewModel: ObservableObject {
+class HistoryPostViewModel: ObservableObject {
     @Published var posts: [Post] = []
     @Published var user: User?
+    @Published var showSheet: Bool = false
     
     init() {
         fetchPostDetails()
