@@ -15,8 +15,6 @@ struct Comment: Identifiable, Codable {
     let content: String
     let timestamp: Date
     let posterId: String //poster's userId
-    let posterName: String
-    let posterImg: String
 }
 
 extension Comment {

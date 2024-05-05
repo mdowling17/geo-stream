@@ -98,12 +98,15 @@ struct PostDetailView: View {
                                 .frame(height: 20)
                             
                             Button {
-                                //TODO: comments
+                                mapVM.toggleComments()
                             } label: {
                                 HStack {
-                                    Image(systemName: "bubble.right")
-                                    Text("\(post.commentIds.count)") // Replace with actual comments count
-                                    
+                                    if mapVM.showComments {
+                                        Image(systemName: "bubble.left.fill")
+                                    } else {
+                                        Image(systemName: "bubble.left")
+                                    }
+                                    Text("\(mapVM.posts.first(where: { $0.id == post.id })?.commentIds.count ?? 0)")
                                 }
                                 .font(.headline)
                                 .fontWeight(.semibold)
@@ -116,6 +119,54 @@ struct PostDetailView: View {
                     }
                     
                     descriptionSection
+                    if mapVM.showComments, let postId = post.id {
+                        VStack {
+                            Divider()
+                            ForEach(mapVM.comments) { comment in
+                                if comment.postId == postId {
+                                    HStack {
+                                        if let user = mapVM.users.first(where: {$0.id == comment.posterId}), let displayName = user.displayName {
+                                            if let url = user.getPhotoURL() {
+                                                AnimatedImage(url: url)
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(maxWidth: 50, maxHeight: 50)
+                                                    .clipShape(Circle())
+                                            } else {
+                                                ProfilePicPlaceholderView()
+                                            }
+                                            Text("@\(displayName)").bold()
+                                            Text(comment.content)
+                                            Spacer()
+                                            Text("\(getAge(time: comment.timestamp)) hours ago")
+                                                .font(.caption)
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                    .padding()
+                                }
+                            }
+                            
+                            HStack {
+                                TextField("Add a comment...", text: $mapVM.commentContent)
+                                    .padding()
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(10)
+                                
+                                Button {
+                                    mapVM.addComment(postId: post.id)
+                                    mapVM.commentContent = ""
+                                } label: {
+                                    Image(systemName: "paperplane")
+                                        .padding()
+                                        .background(.app)
+                                        .foregroundColor(.white)
+                                        .clipShape(Circle())
+                                }
+                            }
+                            .padding()
+                        }
+                    }
                     Divider()
                     mapLayer
                 }
@@ -199,6 +250,10 @@ extension PostDetailView {
                 .padding()
         }
         
+    }
+    
+    func getAge(time: Date) -> Int {
+        return Calendar.current.dateComponents([.hour], from: time, to: Date()).hour ?? 0
     }
 }
 

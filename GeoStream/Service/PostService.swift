@@ -100,18 +100,18 @@ struct PostService {
 }
 
 extension PostService {
-    func addComment(_ comment: Comment) {
+    func addComment(postId: String, commentId: String) async throws {
         do {
-            try db.collection("comments").document().setData(from: comment)
+            try await db.collection(Post.collectionName).document(postId).updateData(["commentIds": FieldValue.arrayUnion([commentId])])
         }
         catch {
             print("Error adding comment: \(error)")
         }
     }
     
-    func deleteComment(_ commentId: String) async {
+    func deleteComment(postId: String, commentId: String) async {
         do {
-          try await db.collection("comments").document(commentId).delete()
+            try await db.collection(Post.collectionName).document(postId).updateData(["commentIds": FieldValue.arrayRemove([commentId])])
         } catch {
           print("Error deleting comment: \(error)")
         }

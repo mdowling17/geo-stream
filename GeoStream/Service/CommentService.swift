@@ -29,6 +29,18 @@ struct CommentService {
         }
     }
     
+    func addComment(comment: Comment, postId: String) async throws {
+        do {
+            let commentId = UUID().uuidString
+            try db.collection(Comment.collectionName).document(commentId).setData(from: comment)
+            print("[DEBUG] CommentService:addComment() commentId: \(commentId)\n")
+            try await PostService.shared.addComment(postId: postId, commentId: commentId)
+        } catch {
+            print("[DEBUG ERROR] CommentService:addComment() error: \(error.localizedDescription)\n")
+            throw error
+        }
+    }
+    
     func listenToCommentsDatabase() {
         guard let currentUserId = AuthService.shared.currentUser?.id else { return }
         

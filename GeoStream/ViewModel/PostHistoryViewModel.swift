@@ -1,24 +1,24 @@
 //
-//  PostListViewModel.swift
+//  PostHistoryViewModel.swift
 //  GeoStream
 //
-//  Created by Zirui Wang on 5/3/24.
+//  Created by Matthew Dowling on 5/5/24.
 //
 
 import Foundation
 import SwiftUI
 
 @MainActor
-class HistoryPostViewModel: ObservableObject {
+class PostHistoryViewModel: ObservableObject {
     @Published var posts: [Post] = []
     @Published var user: User?
     @Published var showSheet: Bool = false
-    
+
     init() {
         fetchPostDetails()
         fetchUser()
     }
-    
+
     func fetchPostDetails() {
         Task {
             do {
@@ -28,10 +28,10 @@ class HistoryPostViewModel: ObservableObject {
             } catch {
                 print("[DEBUG ERROR] PostListViewModel:fetchPosts() Error: \(error.localizedDescription)\n")
             }
-            
+
         }
     }
-    
+
     func fetchUser() {
         Task {
             guard let userId = AuthService.shared.currentUser?.id else { return }

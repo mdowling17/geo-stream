@@ -20,7 +20,7 @@ struct PostPreviewView: View {
             }
             
             VStack(spacing: 8) {
-                learnMoreButton
+                viewPostButton
                 if mapVM.nearestPosts.contains(post) {
                     nextButton
                 }
@@ -72,7 +72,7 @@ extension PostPreviewView {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    private var learnMoreButton: some View {
+    private var viewPostButton: some View {
         Button {
             mapVM.openedPost = post
         } label: {

@@ -16,7 +16,8 @@ final class AuthService {
     private let auth = Auth.auth()
     let db = Firestore.firestore()
     var userPublisher = PassthroughSubject<User, Error>()
-
+    var finishedLoadingUser = false
+    
     var currentUser: User? {
         didSet {
             print("[DEBUG INFO] AuthService:currentUser didSet: \(oldValue?.id ?? "nil") to \(currentUser?.id ?? "nil")\n")
@@ -34,6 +35,8 @@ final class AuthService {
         currentFirebaseUser = auth.currentUser
         if let userId = currentFirebaseUser?.uid {
             getUser(userId: userId)
+        } else {
+            finishedLoadingUser = true
         }
     }
     
@@ -91,6 +94,7 @@ final class AuthService {
             } catch {
                 print("[DEBUG ERROR] AuthService:getUser() error: \(error.localizedDescription)\n")
             }
+            finishedLoadingUser = true
         }
     }
     

@@ -17,15 +17,7 @@ struct ProfileView: View {
             List{
                 Section {
                     HStack(spacing: 20){
-                        if let img = profileVM.image {
-                            Image (uiImage: img)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 100, height: 100)
-                                .cornerRadius (64)
-                                .overlay(RoundedRectangle(cornerRadius: 64)
-                                    .stroke(Color.black, lineWidth:3))
-                        } else if let photoURL = profileVM.photoURL, let url = URL(string: photoURL) {
+                        if let url = profileVM.currentUser?.getPhotoURL() {
                             AnimatedImage(url: url)
                                 .resizable()
                                 .indicator(.activity)
@@ -42,31 +34,35 @@ struct ProfileView: View {
                                     .stroke(Color.black, lineWidth:3))
                         }
                         VStack(alignment: .leading, spacing: 10){
-                            Text("@\(profileVM.displayName)").bold().font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                            Text(profileVM.email)
-                            HStack(spacing: 40) {
-                                Text("Follower")
-                                Text("Following")
+                            if let user = profileVM.currentUser {
+                                Text("@\(user.displayName ?? "")")
+                                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                                    .fontWeight(.bold)
+                                Text(user.email)
+                                HStack(spacing: 40) {
+                                    Text("Follower")
+                                    Text("Following")
+                                }
                             }
                         }
                     }
                 }
                 
                 Section("About Me"){
-                    Text(profileVM.description)
+                    Text(profileVM.currentUser?.description ?? "")
                 }
                 
                 Section("Post") {
-                    NavigationLink(destination: FavPostView()) {
-                        Label("Favorite", systemImage: "heart")
+                    NavigationLink(destination: LikedPostsView().environmentObject(profileVM)) {
+                        Label("Liked Posts", systemImage: "heart")
                     }
-                    NavigationLink(destination: HistoryPostView()) {
-                        Label("History", systemImage: "archivebox")
+                    NavigationLink(destination: PostHistoryView().environmentObject(profileVM)) {
+                        Label("Post History", systemImage: "archivebox")
                     }
                 }
                 
                 Section ("Account") {
-                    NavigationLink(destination: ProfileEditView()){
+                    NavigationLink(destination: ProfileEditView().environmentObject(profileVM)){
                         Label("Edit Profile", systemImage: "pencil")
                     }
                     Button(action: {

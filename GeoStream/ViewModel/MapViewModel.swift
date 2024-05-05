@@ -42,12 +42,14 @@ class MapViewModel: ObservableObject {
         }
     }
     @Published var nearestPosts = [Post]()
+    @Published var commentContent: String = ""
         
     // Toggles
     @Published var showPostList: Bool = false
     @Published var showSearchSettings: Bool = false
     @Published var showCreatePost: Bool = false
     @Published var showCreatePostButton: Bool = true
+    @Published var showComments: Bool = false
 
     // Show location detail via sheet
     @Published var openedPost: Post?
@@ -79,6 +81,34 @@ class MapViewModel: ObservableObject {
         subToUserPublisher()
         AuthService.shared.listenToUsersDatabase()
         subToAuthPublisher()
+    }
+    
+    func addComment(postId: String?) {
+        Task {
+            do {
+                guard let postId = postId else {
+                    print("[DEBUG ERROR] MapViewModel:addComment() Error: postId is nil\n")
+                    return
+                }
+                guard let userId = AuthService.shared.currentUser?.id else {
+                    print("[DEBUG ERROR] MapViewModel:addComment() Error: userId is nil\n")
+                    return
+                }
+                let comment = Comment(
+                    postId: postId,
+                    content: commentContent,
+                    timestamp: Date(),
+                    posterId: userId
+                )
+                try await CommentService.shared.addComment(comment: comment, postId: postId)
+            } catch {
+                print("[DEBUG ERROR] MapViewModel:addComment() Error: \(error.localizedDescription)\n")
+            }
+        }
+    }
+    
+    func toggleComments() {
+        showComments.toggle()
     }
         
     func togglePostList() {
@@ -303,6 +333,7 @@ class MapViewModel: ObservableObject {
             .store(in: &subscribers)
     }
     
+    //TODO: this can potentially be removed
     func getUser(userId: String) {
         Task {
             do {

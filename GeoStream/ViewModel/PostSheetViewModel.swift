@@ -1,5 +1,5 @@
 //
-//  PostRowViewModel.swift
+//  PostSheetViewModel.swift
 //  GeoStream
 //
 //  Created by Matthew Dowling on 5/4/24.
