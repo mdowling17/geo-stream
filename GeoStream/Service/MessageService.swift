@@ -20,41 +20,41 @@ struct MessageService {
 
     private init() { }
     
-    func fetchChatMessages() async throws -> [Message] {
-        do {
-            guard let currentUserId = AuthService.shared.currentUser?.id else { throw MessageServiceError.UserNotSignedInError }
-            
-            let querySnapshot =  db.collection(Message.collectionName).order(by: "createdAt", descending: false).whereFilter(Filter.orFilter([
-                Filter.whereField("fromUserId", isEqualTo: currentUserId), Filter.whereField("toUserId", isEqualTo: currentUserId)
-            ]))
-            let messages = try await querySnapshot.getDocuments()
-                .documents
-                .compactMap { try? $0.data(as: Message.self) }
-            return messages
-        } catch {
-            print("[DEBUG ERROR] MessageService:fetchChatMessages() error: \(error.localizedDescription)\n")
-            throw error
-        }
-    }
+    //TODO: remove this
+//    func fetchChatMessages() async throws -> [Message] {
+//        do {
+//            guard let currentUserId = AuthService.shared.currentUser?.id else { throw MessageServiceError.UserNotSignedInError }
+//            
+//            let querySnapshot =  db.collection(Message.collectionName).order(by: "createdAt", descending: false).whereFilter(Filter.orFilter([
+//                Filter.whereField("fromUserId", isEqualTo: currentUserId), Filter.whereField("toUserId", isEqualTo: currentUserId)
+//            ]))
+//            let messages = try await querySnapshot.getDocuments()
+//                .documents
+//                .compactMap { try? $0.data(as: Message.self) }
+//            return messages
+//        } catch {
+//            print("[DEBUG ERROR] MessageService:fetchChatMessages() error: \(error.localizedDescription)\n")
+//            throw error
+//        }
+//    }
     
     //TODO: fix this data
     func sendChatMessage(toUserId: String?, text: String, photoURL: String?) async throws {
         guard let currentUser = AuthService.shared.currentUser else { throw MessageServiceError.UserNotSignedInError }
+        let messageId = UUID().uuidString
         let fromUserId = currentUser.id
         let photoURL = photoURL
         let createdAt = Date()
-        let data = [
-            "toUserId": toUserId ?? "",
-            "fromUserId": fromUserId,
-            "toPostId": "",
-            "text": text,
-            "photoURL": photoURL ?? "",
-            "createdAt": createdAt
-        ] as [String: Any]
+        let newMessage = Message(
+            toUserId: toUserId ?? "",
+            fromUserId: fromUserId ?? "",
+            text: text,
+            createdAt: createdAt
+        )
         do {
             
-            let result = try await db.collection(Message.collectionName).addDocument(data: data)
-            print("[DEBUG] MessageService:sendChatMessage() result: \(result)\n")
+            try db.collection(Message.collectionName).document(messageId).setData(from: newMessage)
+            print("[DEBUG] MessageService:sendChatMessage() result: Success\n")
         } catch {
             print("[DEBUG ERROR] MessageService:sendChatMessage() error: \(error.localizedDescription)\n")
             throw error

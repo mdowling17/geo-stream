@@ -9,31 +9,26 @@ import SwiftUI
 
 struct IndividualChatView: View {
     @EnvironmentObject var chatVM: ChatViewModel
+    var toUserId: String
     
     var body: some View {
         VStack {
-            HStack {
-                Button {
-                    chatVM.showIndividualChat = false
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(.app)
-                        .fontWeight(.bold)
-                        .font(.title)
-                        .padding()
-                }
-                Spacer()
-            }
             ScrollViewReader { scrollView in
                 ScrollView {
                     // add a dismiss button
                     VStack(spacing: 8) {
-                        ForEach(Array(chatVM.messages.enumerated()), id: \.element) { idx, message in
-                            MessageView(message: message)
-                                .id(idx)
-                        }
-                        .onChange(of: chatVM.messages) { _ in
-                            scrollView.scrollTo(chatVM.messages.count - 1, anchor: .bottom)
+                        if let currentUser = chatVM.currentUser, let currentUserId = currentUser.id {
+                            ForEach(Array(chatVM.messages.filter { message in
+                                let isValid = (message.fromUserId == currentUserId && message.toUserId == toUserId) || (message.fromUserId == toUserId && message.toUserId == currentUserId)
+                                return isValid
+                            }.enumerated()), id: \.element) { idx, message in
+                                // only show messages between the currentUser and the toUser
+                                MessageView(message: message)
+                                    .id(idx)
+                            }
+                            .onChange(of: chatVM.messages) {
+                                scrollView.scrollTo(chatVM.messages.count - 1, anchor: .bottom)
+                            }
                         }
                     }
                 }
@@ -43,7 +38,7 @@ struct IndividualChatView: View {
             }
             
             HStack {
-                TextField("Hello there", text: $chatVM.text, axis: .vertical)
+                TextField("Say hi", text: $chatVM.text, axis: .vertical)
                     .textInputAutocapitalization(.never)
                     .disableAutocorrection(true)
                     .padding([.bottom, .top, .leading])
@@ -68,9 +63,12 @@ struct IndividualChatView: View {
             }
             .padding()
         }
+        .onAppear {
+            chatVM.toUserId = toUserId
+        }
     }
 }
 
 #Preview {
-    IndividualChatView().environmentObject(ChatViewModel())
+    IndividualChatView(toUserId: "BLq7A3itHffkzJtQHU5Vv23iCMG2").environmentObject(ChatViewModel())
 }

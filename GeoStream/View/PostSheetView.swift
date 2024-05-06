@@ -59,6 +59,8 @@ struct PostSheetView: View {
                                 .padding()
                                 .background(.ultraThinMaterial)
                                 .cornerRadius(10)
+                                .textInputAutocapitalization(.never)
+                                .disableAutocorrection(true)
                             
                             Button {
                                 profileVM.addComment(postId: post.id)

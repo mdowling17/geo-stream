@@ -10,39 +10,41 @@ import Combine
 
 @MainActor
 class ChatViewModel: ObservableObject {
-    @Published var messages: [Message] = []
+    // subscriptions
+    var subscribers: Set<AnyCancellable> = []
+    @Published var messages = [Message]()
+    @Published var posts = [Post]()
+    @Published var users = [User]()
+    @Published var currentUser: User?
+    
+    // data
+    @Published var searchQuery: String = ""
+    
+    // toggles
+    @Published var showOnlyFollowing: Bool = false
     @Published var text = ""
     @Published var errorMessage = ""
     @Published var toUserId = ""
-    @Published var photoURL: String?
-    @Published var followers: [User] = []
-    @Published var showIndividualChat = false
-    var subscribers: Set<AnyCancellable> = []
     
     init () {
         MessageService.shared.listenToMessagesDatabase()
         subToMessagePublisher()
-        fetchUserDetails()
+        PostService.shared.listenToPostsDatabase()
+        subToPostPublisher()
+        UserService.shared.listenToUsersDatabase()
+        subToUserPublisher()
+        AuthService.shared.listenToUsersDatabase()
+        subToAuthPublisher()
     }
     
     func sendChatMessage(text: String) {
         Task {
             do {
                 print("[DEBUG] ChatViewModel:sendChatMessage() text: \(text) toUserId: \(toUserId)\n")
+                let photoURL = currentUser?.photoURL ?? ""
                 try await MessageService.shared.sendChatMessage(toUserId: toUserId, text: text, photoURL: photoURL)
             } catch {
                 print("[DEBUG ERROR] ChatViewModel:sendChatMessage() error: \(error.localizedDescription)\n")
-                errorMessage = error.localizedDescription
-            }
-        }
-    }
-    
-    func fetchChatMessages() {
-        Task {
-            do {
-                messages = try await MessageService.shared.fetchChatMessages()
-            } catch {
-                print("[DEBUG ERROR] ChatViewModel:fetchChatMessages() error: \(error.localizedDescription)\n")
                 errorMessage = error.localizedDescription
             }
         }
@@ -67,24 +69,80 @@ class ChatViewModel: ObservableObject {
             .store(in: &subscribers)
     }
     
-    func fetchUserDetails() {
-        guard let currentUser = AuthService.shared.currentUser else { return }
-        guard let userId = currentUser.id else { return }
-        
+    private func subToPostPublisher() {
+        print("[DEBUG] ChatViewModel:subToPostPublisher() started\n")
+        PostService.shared.postPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    print("[DEBUG] ChatViewModel:subToPostPublisher() finished\n")
+                case .failure(let error):
+                    print("[DEBUG ERROR] ChatViewModel:subToPostPublisher() error: \(error.localizedDescription)\n")
+                }
+            } receiveValue: { [weak self] posts in
+                print("[DEBUG] ChatViewModel:subToPostPublisher() receiveValue() posts: \(posts)\n")
+                self?.posts = posts
+            }
+            .store(in: &subscribers)
+    }
+    
+    private func subToUserPublisher() {
+        print("[DEBUG] ChatViewModel:subToUserPublisher() started\n")
+        UserService.shared.userPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    print("[DEBUG] ChatViewModel:subToUserPublisher() finished\n")
+                case .failure(let error):
+                    print("[DEBUG ERROR] ChatViewModel:subToUserPublisher() error: \(error.localizedDescription)\n")
+                }
+            } receiveValue: { [weak self] users in
+                print("[DEBUG] ChatViewModel:subToUserPublisher() receiveValue() users: \(users)\n")
+                self?.users = users
+            }
+            .store(in: &subscribers)
+    }
+    
+    private func subToAuthPublisher() {
+        print("[DEBUG] ChatViewModel:subToAuthPublisher() started\n")
+        AuthService.shared.userPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] completion in
+                switch completion {
+                case .finished:
+                    print("[DEBUG] ChatViewModel:subToAuthPublisher() finished\n")
+                case .failure(let error):
+                    print("[DEBUG ERROR] ChatViewModel:subToAuthPublisher() error: \(error.localizedDescription)\n")
+                }
+            } receiveValue: { [weak self] currentUser in
+                print("[DEBUG] MapViewModel:subToAuthPublisher() receiveValue() currentUser: \(currentUser)\n")
+                self?.currentUser = currentUser
+            }
+            .store(in: &subscribers)
+    }
+    
+    func addFriend(userId: String) {
         Task {
             do {
-                let user = try await UserService.shared.fetchProfile(userId: userId)
-                photoURL = user.photoURL
-                print("[DEBUG] ChatViewModel:fetchUserDetails() user: \(user.photoURL ?? "")\n")
-                //TODO: dynamically fetch followers
-//                followers = user.followerIds
-                //TODO: get rid of this hardcoded follower
-                followers.append(User(id: "1", email: "test2@gmail.com", displayName: "testuser1", description: "first tester", photoURL: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/Original_Doge_meme.jpg/220px-Original_Doge_meme.jpg", followerIds: [], followingIds: [], likedPostIds: []))
-                print("[DEBUG] ChatViewModel:fetchUserDetails() followers: \(followers)\n")
+                try await UserService.shared.addFriend(userId: userId)
             } catch {
-                print("[DEBUG ERROR] ProfileEditViewModel:init() Error: \(error.localizedDescription)\n")
+                print("[DEBUG ERROR] ChatViewModel:addFriend() error: \(error.localizedDescription)\n")
                 errorMessage = error.localizedDescription
             }
         }
     }
+    
+    func removeFriend(userId: String) {
+        Task {
+            do {
+                try await UserService.shared.removeFriend(userId: userId)
+            } catch {
+                print("[DEBUG ERROR] ChatViewModel:removeFriend() error: \(error.localizedDescription)\n")
+                errorMessage = error.localizedDescription
+            }
+        }
+    }
+
 }

@@ -129,6 +129,7 @@ class MapViewModel: ObservableObject {
                     timestamp: Date(),
                     posterId: userId
                 )
+                commentContent = ""
                 try await CommentService.shared.addComment(comment: comment, postId: postId)
             } catch {
                 print("[DEBUG ERROR] MapViewModel:addComment() Error: \(error.localizedDescription)\n")

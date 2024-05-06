@@ -40,9 +40,12 @@ struct ProfileView: View {
                                     .fontWeight(.bold)
                                 Text(user.email)
                                 HStack(spacing: 40) {
-                                    Text("Follower")
-                                    Text("Following")
+                                    Text("Followers: \(user.followerIds.count)")
+                                    Text("Following: \(user.followingIds.count)")
                                 }
+                                .font(.headline)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.secondary)
                             }
                         }
                     }

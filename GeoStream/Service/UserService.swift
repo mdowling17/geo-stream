@@ -128,6 +128,30 @@ struct UserService {
             throw error
         }
     }
+    
+    func addFriend(userId: String) async throws {
+        do {
+            guard let currentUserId = AuthService.shared.currentUser?.id else { return }
+            try await db.collection(User.collectionName).document(userId).updateData(["followerIds": FieldValue.arrayUnion([currentUserId])])
+            try await db.collection(User.collectionName).document(currentUserId).updateData(["followingIds": FieldValue.arrayUnion([userId])])
+            print("[DEBUG] UserService:addFriend() added friend \(userId)\n")
+        } catch {
+            print("[DEBUG ERROR] UserService:addFriend() error: \(error.localizedDescription)\n")
+            throw error
+        }
+    }
+    
+    func removeFriend(userId: String) async throws {
+        do {
+            guard let currentUserId = AuthService.shared.currentUser?.id else { return }
+            try await db.collection(User.collectionName).document(userId).updateData(["followerIds": FieldValue.arrayRemove([currentUserId])])
+            try await db.collection(User.collectionName).document(currentUserId).updateData(["followingIds": FieldValue.arrayRemove([userId])])
+            print("[DEBUG] UserService:removeFriend() removed friend \(userId)\n")
+        } catch {
+            print("[DEBUG ERROR] UserService:removeFriend() error: \(error.localizedDescription)\n")
+            throw error
+        }
+    }
 }
 
 extension UserService {

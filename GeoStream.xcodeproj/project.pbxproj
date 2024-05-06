@@ -45,7 +45,6 @@
 		C946A6372BE47D8C00F9B416 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A6362BE47D8C00F9B416 /* ChatViewModel.swift */; };
 		C946A6392BE48B7900F9B416 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A6382BE48B7900F9B416 /* MessageService.swift */; };
 		C946A63C2BE4A2E400F9B416 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = C946A63B2BE4A2E400F9B416 /* SDWebImageSwiftUI */; };
-		C946A63E2BE4C5E800F9B416 /* FollowersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A63D2BE4C5E800F9B416 /* FollowersListView.swift */; };
 		C946A6422BE4C8B900F9B416 /* IndividualChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946A6412BE4C8B900F9B416 /* IndividualChatView.swift */; };
 		C97445172BE52F6B0042D01F /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97445162BE52F6B0042D01F /* MapView.swift */; };
 		C97445192BE52F790042D01F /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97445182BE52F790042D01F /* MapViewModel.swift */; };
@@ -160,7 +159,6 @@
 		C946A6342BE47B6F00F9B416 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		C946A6362BE47D8C00F9B416 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		C946A6382BE48B7900F9B416 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
-		C946A63D2BE4C5E800F9B416 /* FollowersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListView.swift; sourceTree = "<group>"; };
 		C946A6412BE4C8B900F9B416 /* IndividualChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualChatView.swift; sourceTree = "<group>"; };
 		C97445162BE52F6B0042D01F /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		C97445182BE52F790042D01F /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -362,7 +360,6 @@
 			children = (
 				C946A6302BE47B2B00F9B416 /* ChatView.swift */,
 				9482F53D2BE16BF6003B8B93 /* CreatePostView.swift */,
-				C946A63D2BE4C5E800F9B416 /* FollowersListView.swift */,
 				C914F3532BE2A89D00B26DE2 /* ForgotPasswordView.swift */,
 				C946A6412BE4C8B900F9B416 /* IndividualChatView.swift */,
 				C9ADAF472BE80834007B0660 /* LikedPostsView.swift */,
@@ -620,7 +617,6 @@
 				C946A6392BE48B7900F9B416 /* MessageService.swift in Sources */,
 				C914F35C2BE2B3A300B26DE2 /* AppHeader.swift in Sources */,
 				946669092BE56E3C00A2CF76 /* ProfileViewModel.swift in Sources */,
-				C946A63E2BE4C5E800F9B416 /* FollowersListView.swift in Sources */,
 				C9D322952BE2CA380006DD8F /* User.swift in Sources */,
 				C99BF75B2BE268D10057DB4C /* SignInViewModel.swift in Sources */,
 				C9A3328F2BE2D18E00FC1D43 /* ContentView.swift in Sources */,

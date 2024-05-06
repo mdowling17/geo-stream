@@ -155,10 +155,11 @@ struct PostDetailView: View {
                                     .padding()
                                     .background(.ultraThinMaterial)
                                     .cornerRadius(10)
-                                
+                                    .textInputAutocapitalization(.never)
+                                    .disableAutocorrection(true)
+
                                 Button {
                                     mapVM.addComment(postId: post.id)
-                                    mapVM.commentContent = ""
                                 } label: {
                                     Image(systemName: "paperplane")
                                         .padding()
