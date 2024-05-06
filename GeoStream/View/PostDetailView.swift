@@ -26,13 +26,6 @@ struct PostDetailView: View {
                                     .scaledToFill()
                                     .frame(maxWidth: 50, maxHeight: 50)
                                     .clipShape(Circle())
-                                    .onTapGesture {
-                                        postDetailVM.showUserDetail.toggle()
-                                    }
-                                    .sheet(isPresented: $postDetailVM.showUserDetail) {
-                                        OtherProfileView(user: mapVM.postDetailUser!)
-                                    }
-                                
                             } else {
                                 ProfilePicPlaceholderView()
                             }
@@ -55,8 +48,8 @@ struct PostDetailView: View {
                         Spacer()
                         
                         VStack(alignment: .trailing) {
-                            if !post.city.isEmpty, !post.country.isEmpty {
-                                Text("\(post.city), \(post.country)")
+                            if !post.city.isEmpty, !post.country.isEmpty, !post.state.isEmpty {
+                                Text("\(post.city), \(post.state), \(post.country)")
                                     .font(.headline)
                             }
                             
@@ -202,28 +195,16 @@ extension PostDetailView {
         .tabViewStyle(PageTabViewStyle())
     }
     
-    private var titleSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(post.title)
-                .font(.largeTitle)
-                .fontWeight(.semibold)
-            
-            Text(post.address)
-                .font(.title3)
-                .foregroundColor(.secondary)
-        }
-    }
-    
     private var descriptionSection: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(post.content)
-//                .font(.subheadline)
                 .foregroundColor(.primary)
                 .padding()
         }
     }
     
     private var mapLayer: some View {
+        //TODO: fix warnings
         Map(coordinateRegion: .constant(MKCoordinateRegion(
             center: post.location,
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))),
@@ -237,22 +218,6 @@ extension PostDetailView {
             .allowsHitTesting(false)
             .aspectRatio(1, contentMode: .fit)
             .cornerRadius(30)
-    }
-    
-    private var backButton: some View {
-        Button {
-            mapVM.openedPost = nil
-        } label: {
-            Image(systemName: "xmark")
-                .font(.headline)
-                .padding(16)
-                .foregroundColor(.primary)
-                .background(.thickMaterial)
-                .cornerRadius(10)
-                .shadow(radius: 4)
-                .padding()
-        }
-        
     }
     
     func getAge(time: Date) -> Int {

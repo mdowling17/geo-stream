@@ -40,7 +40,7 @@ struct PostPreviewView: View {
 extension PostPreviewView {
     private var imageSection: some View {
         ZStack {
-            if let photoURL = post.getFirstPhotoURL() {
+            if let _ = post.getFirstPhotoURL() {
                 ZStack {
                     PostImageView(post: post)
                         .frame(width: 100, height: 100)
@@ -62,11 +62,11 @@ extension PostPreviewView {
     
     private var titleSection: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(post.title)
+            Text(post.city)
                 .font(.title2)
                 .fontWeight(.bold)
             
-            Text(post.address)
+            Text(post.state)
                 .font(.subheadline)
         }
         .frame(maxWidth: .infinity, alignment: .leading)

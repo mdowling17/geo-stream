@@ -43,8 +43,8 @@ final class AuthService {
     func signIn(email: String, password: String) async throws {
         do {
             let result = try await auth.signIn(withEmail: email, password: password)
-            currentUser = try await UserService.shared.fetchProfile(userId: result.user.uid)
             currentFirebaseUser = result.user
+            currentUser = try? await UserService.shared.fetchProfile(userId: result.user.uid)
             print("[DEBUG INFO] AuthService:signIn() result: \(result.description)\n")
         } catch {
             throw error
@@ -57,8 +57,9 @@ final class AuthService {
                 throw MyError.runtimeError("Passwords do not match")
             }
             let result = try await auth.createUser(withEmail: email, password: password)
-            currentUser = try await UserService.shared.fetchProfile(userId: result.user.uid)
-            currentFirebaseUser = result.user
+            let userId = result.user.uid
+            let _ = try await UserService.shared.saveProfile(userId: userId, email: email)
+
             print("[DEBUG INFO] AuthService:signUp() result: \(result.description)\n")
         } catch {
             print("[DEBUG ERROR] AuthService:signUp() error: \(error.localizedDescription)\n")

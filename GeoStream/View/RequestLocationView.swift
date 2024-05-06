@@ -24,10 +24,10 @@ struct RequestLocationView: View {
                 .padding(.top)
             
             Text("""
-1. Tap the "Open Settings" button below
-2. Tap on "Location Services"
-3. Find and tap on "GeoStream"
-4. Under "ALLOW LOCATION ACCESS" choose either "Ask Next Time Or When I Share" or "While Using the App"
+‣ Tap the "Open Settings" button below
+‣ Tap on "Location Services"
+‣ Find and tap on "GeoStream"
+‣ Under "ALLOW LOCATION ACCESS" choose either "Ask Next Time Or When I Share" or "While Using the App"
 """)
                 .multilineTextAlignment(.leading)
                 .padding()

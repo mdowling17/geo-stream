@@ -16,19 +16,6 @@ struct CommentService {
 
     private init() { }
     
-    func fetchComments(_ postId: String) async throws -> [Comment] {
-        do {
-            let querySnapshot = try await db.collection(Comment.collectionName).whereField("postId", isEqualTo: postId).getDocuments()
-            let comments = querySnapshot.documents.compactMap { queryDocumentSnapshot -> Comment? in
-                return try? queryDocumentSnapshot.data(as: Comment.self)
-            }
-            return comments
-        } catch {
-            print("[DEBUG ERROR] CommentService:fetchCommentsByPostId() error: \(error.localizedDescription)\n")
-            throw error
-        }
-    }
-    
     func addComment(comment: Comment, postId: String) async throws {
         do {
             let commentId = UUID().uuidString
@@ -42,8 +29,6 @@ struct CommentService {
     }
     
     func listenToCommentsDatabase() {
-        guard let currentUserId = AuthService.shared.currentUser?.id else { return }
-        
         let querySnapshot =  db.collection(Comment.collectionName).order(by: "timestamp", descending: false)
         
         querySnapshot.addSnapshotListener { querySnapshot, error in

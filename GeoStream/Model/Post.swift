@@ -22,10 +22,9 @@ struct Post: Identifiable, Equatable, Hashable {
     let content: String
     let type: String
     let location: CLLocationCoordinate2D
-    let address: String
     let city: String
+    let state: String
     let country: String
-    let title: String
     let imageUrl: [String]
     var commentIds: [String]
     
@@ -39,10 +38,9 @@ struct Post: Identifiable, Equatable, Hashable {
              location,
              imageUrl,
              commentIds,
-             address,
              city,
              country,
-             title
+             state
     }
     
     func hash(into hasher: inout Hasher) {
@@ -72,10 +70,9 @@ extension Post: Encodable {
         // Convert CLLocationCoordinate2D to GeoPoint and encode it
         let geoPoint = GeoPoint(latitude: location.latitude, longitude: location.longitude)
         try container.encode(geoPoint, forKey: .location)
-        try container.encode(address, forKey: .address)
         try container.encode(city, forKey: .city)
+        try container.encode(state, forKey: .state)
         try container.encode(country, forKey: .country)
-        try container.encode(title, forKey: .title)
     }
 }
 
@@ -95,10 +92,9 @@ extension Post: Decodable {
         // Decode GeoPoint and convert it to CLLocationCoordinate2D
         let geoPoint = try container.decode(GeoPoint.self, forKey: .location)
         location = CLLocationCoordinate2D(latitude: geoPoint.latitude, longitude: geoPoint.longitude)
-        address = try container.decode(String.self, forKey: .address)
         city = try container.decode(String.self, forKey: .city)
         country = try container.decode(String.self, forKey: .country)
-        title = try container.decode(String.self, forKey: .title)
+        state = try container.decode(String.self, forKey: .state)
     }
 }
 

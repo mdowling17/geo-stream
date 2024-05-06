@@ -23,23 +23,45 @@ struct UserService {
     private let db = Firestore.firestore()
     private let storage = Storage.storage()
     var userPublisher = PassthroughSubject<[User], Error>()
-
+    
     private init() { }
-
-    func saveProfile(displayName: String, description: String, image: UIImage?) async throws {
+    
+    func saveProfile(userId: String, email: String) async throws {
+        do {
+            var newUser = User(
+                id: userId,
+                email: email,
+                displayName: "",
+                description: "",
+                photoURL: "",
+                followerIds: [],
+                followingIds: [],
+                likedPostIds: []
+            )
+            try db.collection(User.collectionName).document(userId).setData(from: newUser)
+        } catch {
+            print("[DEBUG ERROR] UserService:saveProfile() error: \(error.localizedDescription)\n")
+            throw error
+        }
+    }
+    
+    func saveProfile(displayName: String, description: String, image: UIImage?, photoURL: String?) async throws {
         guard let currentUser = AuthService.shared.currentUser else {
             throw UserServiceError.UserNotSignedInError
         }
         guard let documentId = currentUser.id else {
             throw UserServiceError.UserNotSignedInError
         }
-        let email = currentUser.email ?? ""
+        var givenPhotoURL = photoURL
+        let email = currentUser.email
+        let followerIds = currentUser.followerIds
+        let followingIds = currentUser.followingIds
+        let likedPostIds = currentUser.likedPostIds
         do {
-            var photoURL: String? = nil
-            if let image = image {
-                photoURL = try await uploadProfileImage(documentId: documentId, image: image)
+            if givenPhotoURL == nil || givenPhotoURL == "", let image = image {
+                givenPhotoURL = try await uploadProfileImage(documentId: documentId, image: image)
             }
-            let newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: photoURL, followerIds: [], followingIds: [], likedPostIds: [])
+            var newUser = User(id: documentId, email: email, displayName: displayName, description: description, photoURL: givenPhotoURL ?? "", followerIds: followerIds, followingIds: followingIds, likedPostIds: likedPostIds)
             try db.collection(User.collectionName).document(documentId).setData(from: newUser)
             
         } catch {
@@ -76,24 +98,8 @@ struct UserService {
         }
     }
     
-    
-    // TODO: possibly remove
-    func fetchProfileImage(documentId: String) async throws -> UIImage? {
-        do {
-            let storageRef = storage.reference().child("\(documentId)/profile_pic.jpg")
-            let data = try await storageRef.data(maxSize: 10 * 1024 * 1024)
-            guard let image = UIImage(data: data) else { return nil }
-            return image
-        } catch {
-            print("[DEBUG ERROR] UserService:fetchProfileImage() error: \(error.localizedDescription)\n")
-            throw error
-        }
-    }
-    
     func listenToUsersDatabase() {
-        guard let currentUserId = AuthService.shared.currentUser?.id else { return }
-        
-        let querySnapshot =  db.collection(User.collectionName)
+        let querySnapshot =  db.collection(User.collectionName).order(by: "displayName")
         
         querySnapshot.addSnapshotListener { querySnapshot, error in
             if let error = error {
@@ -150,30 +156,6 @@ struct UserService {
         } catch {
             print("[DEBUG ERROR] UserService:removeFriend() error: \(error.localizedDescription)\n")
             throw error
-        }
-    }
-}
-
-extension UserService {
-    func followUser(_ otherUser: String) async {
-        // curUserId follows otherUser
-        guard let curUserId = AuthService.shared.currentUser?.id else {return}
-        do {
-            try await db.collection("users").document(curUserId).updateData(["followingIds": FieldValue.arrayUnion([otherUser])])
-            try await db.collection("users").document(otherUser).updateData(["followerIds": FieldValue.arrayUnion([curUserId])])
-        } catch {
-            print("Error following a user: \(error)\n")
-        }
-    }
-    
-    func unfollowUser(_ otherUser: String) async {
-        // curUserId unfollows otherUser
-        guard let curUserId = AuthService.shared.currentUser?.id else {return}
-        do {
-            try await db.collection("users").document(curUserId).updateData(["followingIds": FieldValue.arrayRemove([otherUser])])
-            try await db.collection("users").document(otherUser).updateData(["followerIds": FieldValue.arrayRemove([curUserId])])
-        } catch {
-            print("Error unfollowing a user: \(error)\n")
         }
     }
 }

@@ -49,7 +49,7 @@ struct CreatePostView: View {
                 Image(systemName: "mappin.and.ellipse")
                 Text("  [\(createPostVM.lat, specifier: "%.2f"), \(createPostVM.lon, specifier: "%.2f")]")
             }.padding()
-                
+            
             
             Divider()
             TextEditorWithPlaceholder(text: $createPostVM.content)
@@ -69,18 +69,6 @@ struct CreatePostView: View {
                     .shadow(radius: 10)
             }
             
-//            ZStack {
-//                RoundedRectangle(cornerRadius: 10)
-//                    .fill(.white)
-//                    .overlay(RoundedRectangle(cornerRadius: 10)
-//                        .stroke(Color.gray, lineWidth: 2) // Set border color and width
-//                    )
-//                    .frame(width: 60, height: 60)
-//                Image(systemName: "camera.viewfinder")
-//                    .frame(width: 140, height: 140)
-//            }.onTapGesture {
-//                createPostVM.isConfirmationDialogPresented = true
-//            }
             HStack{
                 Spacer()
                 Button{
@@ -99,7 +87,6 @@ struct CreatePostView: View {
                 Button {
                     if createPostVM.content.count > 0 {
                         createPostVM.createPost()
-//                        mapVM.showCreatePost = false
                     }
                 } label: {
                     Image(systemName: "arrow.up")
@@ -112,90 +99,6 @@ struct CreatePostView: View {
                         .clipShape(Circle())
                 }
             }.frame(width: 320)
-//            VStack {
-//                if let image = createPostVM.image {
-//                    Image(uiImage: image)
-//                        .resizable()
-//                        .scaledToFill()
-//                        .frame(width: 200, height: 200)
-//                        .shadow(radius: 10)
-//                } else if let photoURL = createPostVM.photoURL, let url = URL(string: photoURL) {
-//                    AnimatedImage(url: url)
-//                        .resizable()
-//                        .indicator(.activity)
-//                        .scaledToFill()
-//                        .frame(width: 200, height: 200)
-//                        .shadow(radius: 10)
-//                } else {
-//                    ZStack {
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .fill(.white)
-//                            .overlay(RoundedRectangle(cornerRadius: 10)
-//                                    .stroke(Color.gray, lineWidth: 2) // Set border color and width
-//                                    )
-//                            .frame(width: 60, height: 60)
-//                        Image(systemName: "camera.viewfinder")
-//                            .frame(width: 120, height: 120)
-                        
-                        
-                        
-//                        Text("Upload a photo")
-//                            .font(.headline)
-//                            .fontWeight(.bold)
-//                            .foregroundColor(.app)
-//                            .padding(.top, 20)
-//                    }
-//                }
-//            }
-//            .onTapGesture {
-//                createPostVM.isConfirmationDialogPresented = true
-//            }
-            
-//            HStack {
-//                TextField("Title?", text: $createPostVM.title, axis: .vertical)
-//                    .textInputAutocapitalization(.never)
-//                    .disableAutocorrection(true)
-//                    .padding([.bottom, .top, .leading])
-//                TextField("What's happening?", text: $createPostVM.content, axis: .vertical)
-//                    .textInputAutocapitalization(.never)
-//                    .disableAutocorrection(true)
-//                    .padding([.bottom, .top, .leading])
-//                Button {
-//                    if createPostVM.content.count > 0 {
-//                        createPostVM.createPost()
-//                        mapVM.showCreatePost = false
-//                        let id = UUID().uuidString
-//                        let userId = createPostVM.user?.id ?? ""
-//                        let timestamp = Date()
-//                        let likes = 0
-//                        let content = createPostVM.content
-//                        let type = createPostVM.type
-//                        let location = LocationManager().location ?? CLLocationCoordinate2D(latitude: 37.778008, longitude: -122.431272)
-//                        let address = ""
-//                        let city = ""
-//                        let country = ""
-//                        let title = createPostVM.title
-//                        let imageUrl = [createPostVM.photoURL ?? ""]
-//                        let commentIds = [String]()
-//                        let newPost = Post(id: id, userId: userId, timestamp: timestamp, likes: likes, content: content, type: type, location: location, address: address, city: city, country: country, title: title, imageUrl: imageUrl, commentIds: commentIds)
-//                        mapVM.posts.append(newPost)
-//                        mapVM.selectedPost = newPost
-//                    }
-//                } label: {
-//                    Image(systemName: "arrow.up")
-//                        .foregroundColor(.white)
-//                        .fontWeight(.bold)
-//                        .padding(5)
-//                        .background(.app)
-//                        .clipShape(Circle())
-//                }
-//                .padding([.bottom, .top, .trailing])
-//            }
-//            .background {
-//                RoundedRectangle(cornerRadius: 20)
-//                    .stroke(.gray, lineWidth: 2)
-//            }
-//            .padding()
         }
         .confirmationDialog("Choose an option", isPresented: $createPostVM.isConfirmationDialogPresented) {
             Button("Camera") {
@@ -214,25 +117,6 @@ struct CreatePostView: View {
                 PhotoLibraryPicker(selectedImage: $createPostVM.image)
             }
         }
-//        .toolbar{
-//            Button {
-//                createPostVM.createPost()
-//            } label: {
-//                Text("Post")
-//                    .bold()
-//                    .padding(.horizontal)
-//                    .padding(.vertical, 8)
-//                    .background(Color.app)
-//                    .foregroundColor(.white)
-//                    .clipShape(Capsule())
-//            }
-//        }
-//        .onReceive(viewModel.$didUploadTweeet) { success in
-//            if success {
-//                viewModel.didUploadTweeet = false
-//                presentationMode.wrappedValue.dismiss()
-//            }
-//       }
     }
 }
 
@@ -243,7 +127,7 @@ struct TextEditorWithPlaceholder: View {
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty {
-               VStack {
+                VStack {
                     Text("What's happening?")
                         .padding(.top, 10)
                         .padding(.leading, 6)

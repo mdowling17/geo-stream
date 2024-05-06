@@ -166,6 +166,4 @@ class ProfileViewModel: ObservableObject {
             }
             .store(in: &subscribers)
     }
-
-    
 }

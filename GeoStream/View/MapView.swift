@@ -14,7 +14,7 @@ struct MapView: View {
     @StateObject var mapVM = MapViewModel()
     @Namespace private var mapScope
     @FocusState var searchFieldFocus: Bool
-    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+//    @State private var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
     
     let maxWidthForIpad: CGFloat = 700
     
@@ -49,37 +49,6 @@ struct MapView_Previews: PreviewProvider {
 extension MapView {
     private var header: some View {
         VStack {
-//                        HStack {
-//                            TextField("Search by address", text: $mapVM.searchQuery)
-//                                .disableAutocorrection(true)
-//                                .textInputAutocapitalization(.never)
-//                                .padding(10)
-//                                .background(Color(.systemGray6))
-//                                .cornerRadius(8)
-            
-//                            Button {
-                                //mapVM.hitSearchButton()
-//                            } label: {
-//                                if mapVM.showSearchButton {
-//                                    Image(systemName: "magnifyingglass")
-//                                        .foregroundColor(.gray)
-//                                } else {
-//                                    Image(systemName: "xmark")
-//                                        .foregroundColor(.gray)
-//                                }
-            
-//                            }
-//                            .padding(.trailing, 4)
-//            
-//                            Button {
-//                                mapVM.toggleSearchSettings()
-//                            } label: {
-//                                Image(systemName: "gearshape.fill")
-//                                    .foregroundColor(.gray)
-//                            }
-//                            .padding(.trailing)
-//                        }
-//                        .background(Color(.systemGray6))
             TextField("Search address", text: $mapVM.searchQuery)
                 .textFieldStyle(.roundedBorder)
                 .autocorrectionDisabled()
@@ -108,9 +77,10 @@ extension MapView {
                 }
                 .padding()
             
-            Button(action: mapVM.togglePostList) {
+            Button {
+                mapVM.togglePostList()
+            } label: {
                 HStack {
-                    
                     if let nearestPost = mapVM.nearestPosts.first {
                         Image(systemName: "arrow.down")
                             .font(.headline)
@@ -139,7 +109,7 @@ extension MapView {
     }
     
     private var mapLayer: some View {
-        Map(position: $cameraPosition, selection: $mapVM.selectedPost, scope: mapScope) {
+        Map(position: $mapVM.cameraPosition, selection: $mapVM.selectedPost, scope: mapScope) {
             UserAnnotation()
             ForEach(mapVM.posts) { post in
                 if (post.type == "Event") {
@@ -175,28 +145,9 @@ extension MapView {
             updateCameraPositionToSelectedPost()
         }
         .mapStyle(mapVM.mapSettings.mapStyle)
-        
-        
-//        .safeAreaInset(edge: .bottom) {
-//            VStack {
-//                // Create Post
-//                if mapVM.showCreatePostButton {
-//                    Button(action: {
-//                        mapVM.showCreatePost = true
-//                        mapVM.showPostList = false
-//                    }) {
-//                        Text("Create Post")
-//                            .font(.headline)
-//                            .foregroundColor(.white)
-//                            .padding()
-//                            .background(Color.app)
-//                            .cornerRadius(10)
-//                    }
-//                    .padding()
-//                    .frame(maxWidth: .infinity, alignment: .bottom)
-//                }
-//            }
-//        }
+        .mapControls {
+            
+        }
         .safeAreaInset(edge: .top, alignment: .trailing) {
             VStack {
                 // Search Settings
@@ -310,9 +261,9 @@ extension MapView {
             }
             
             VStack(alignment: .leading) {
-                Text(post.title)
+                Text(post.city)
                     .font(.headline)
-                Text(post.address)
+                Text(post.state)
                     .font(.subheadline)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -329,7 +280,7 @@ extension MapView {
                 )
             )
             withAnimation {
-                cameraPosition = .region(userRegion)
+                mapVM.cameraPosition = .region(userRegion)
             }
         }
     }
@@ -346,7 +297,7 @@ extension MapView {
                 )
             )
             withAnimation {
-                cameraPosition = .region(postRegion)
+                mapVM.cameraPosition = .region(postRegion)
             }
         }
     }

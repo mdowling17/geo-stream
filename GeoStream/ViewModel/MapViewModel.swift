@@ -23,19 +23,21 @@ struct Datum: Codable {
 
 @MainActor
 class MapViewModel: ObservableObject {
-    // PositionStack Config
+    // PositionStack API Config
     private let POSITION_STACK_URL = "http://api.positionstack.com/v1/forward"
     private let POSITION_STACK_API_KEY = "92d0989cebd26dea67f59db3a280d7a6"
 
     // Map Config
-    //TODO: remove
-    @Published var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic)
+    @Published var cameraPosition: MapCameraPosition = .userLocation(fallback: .automatic) {
+        didSet {
+            print("cameraPosition changed to \(cameraPosition)")
+        }
+    }
     @Published var mapRegion: MKCoordinateRegion = MKCoordinateRegion()
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
 
     // Data
     @Published var searchQuery: String = ""
-    // Current location on map
     @Published var selectedPost: Post? {
         didSet {
             showCreatePostButton = selectedPost == nil
@@ -163,17 +165,13 @@ class MapViewModel: ObservableObject {
             return
         }
         
-        // Check if the currentIndex is valid
         let nextIndex = currentIndex + 1
         guard nearestPosts.indices.contains(nextIndex) else {
-            // Next index is NOT valid
-            // Restart from 0
             guard let firstLocation = nearestPosts.first else { return }
             showNextLocation(post: firstLocation)
             return
         }
         
-        // Next index IS valid
         let nextLocation = nearestPosts[nextIndex]
         showNextLocation(post: nextLocation)
     }
@@ -184,6 +182,7 @@ class MapViewModel: ObservableObject {
         showPostList = false
     }
     
+    //TODO: use this to fix addresses
     func searchLocation() {
         if searchQuery.isEmpty { return }
         // take the search query and make an API call to Position Stack
@@ -222,8 +221,8 @@ class MapViewModel: ObservableObject {
                     let newMapRegion = MKCoordinateRegion(
                         center: newLocation,
                         span: self.mapSpan)
-                    self.mapRegion = newMapRegion
-                    self.cameraPosition = MapCameraPosition.region(newMapRegion)
+//                    self.mapRegion = newMapRegion
+                    self.cameraPosition = .region(newMapRegion)
                     
                     print("Successfully loaded location! \(details.name ?? "")\n")
                 }
@@ -359,7 +358,7 @@ class MapViewModel: ObservableObject {
             .store(in: &subscribers)
     }
     
-    //TODO: this can potentially be removed
+    //TODO: consider potentially removing this
     func getUser(userId: String) {
         Task {
             do {

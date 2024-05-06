@@ -18,7 +18,7 @@ class CreatePostViewModel: ObservableObject {
     @Published var sourceType: SourceType = .camera
 
     @Published var user: User?
-    @Published var lat: Double = -122.407546
+    @Published var lat: Double = -122.407546 //initialize to san francisco, this will be overwritten
     @Published var lon: Double = 37.788155
     @Published var content: String = ""
     @Published var title: String = ""
@@ -55,7 +55,6 @@ class CreatePostViewModel: ObservableObject {
         }
     }
     
-    //TODO: fix
     func setCoordinatesOnCurrentLocation() {
         if let userLocation = LocationService.shared.userLocation {
             lat = userLocation.coordinate.latitude
@@ -63,13 +62,18 @@ class CreatePostViewModel: ObservableObject {
         }
     }
     
-    //TODO: fix
     func createPost() {
         Task {
             do {
                 guard let userId = AuthService.shared.currentUser?.id else { return }
                 let postId = UUID().uuidString
                 let photoURL = try await uploadPhoto(userId: userId, postId: UUID().uuidString)
+                let coordinates = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                let addresses = try await PostService.shared.getAddressAsync(location: coordinates)
+                let city = addresses.first?.locality ?? ""
+                let state = addresses.first?.administrativeArea ?? ""
+                let country = addresses.first?.isoCountryCode ?? ""
+                print("[DEBUG] CreatePostViewModel:createPost() addresses: \(addresses)\n")
                 let newPost = Post(
                     id: postId,
                     userId: userId,
@@ -81,10 +85,9 @@ class CreatePostViewModel: ObservableObject {
                         latitude: lat,
                         longitude: lon
                     ),
-                    address: "",
-                    city: "",
-                    country: "",
-                    title: "",
+                    city: city,
+                    state: state,
+                    country: country,
                     imageUrl: [photoURL],
                     commentIds: []
                 )
@@ -94,18 +97,5 @@ class CreatePostViewModel: ObservableObject {
                 print("[DEBUG ERROR] CreatePostViewModel:createPost() Error: \(error.localizedDescription)\n")
             }
         }
-//        mapVM.posts.append(newPost)
-//        mapVM.selectedPost = newPost
-//        locationManager.requestLocation()
-//        Task {
-//            do {
-//                if let location = locationManager.location {
-//                    try await PostService.shared.addPost(content: content, location: location, type: type, title: title, imageUrl: photoURL ?? "")
-//                    uploadPhoto()
-//                }
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
     }
 }

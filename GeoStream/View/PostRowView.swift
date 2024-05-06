@@ -61,10 +61,9 @@ struct PostRowView: View {
                            content: "love this app",
                            type: "event",
                            location: CLLocationCoordinate2D(latitude: 37.78815531914898, longitude: -122.40754586877463),
-                           address: "San Francisco", city: "San Francisco", country: "USA", title: "Downtown SF Party",
+                           city: "San Francisco", state: "California", country: "USA",
                            imageUrl: [],
-                           commentIds: []) 
+                           commentIds: [])
                 
-//                user: User(id: "1", email: "abc", displayName: "def", description: "cdf", photoURL: "dfs", followerIds: [], followingIds: [], favPost: [])
-                )
+    )
 }

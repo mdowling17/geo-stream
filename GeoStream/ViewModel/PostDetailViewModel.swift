@@ -9,8 +9,6 @@ import Foundation
 import SwiftUI
 
 class PostDetailViewModel: ObservableObject {
-    @Published var showUserDetail: Bool = false
-    
     func toggleLikePost(postId: String?) {
         Task {
             do {

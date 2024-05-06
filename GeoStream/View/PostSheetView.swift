@@ -133,6 +133,7 @@ extension PostSheetView {
     }
     
     private var mapLayer: some View {
+        //TODO: fix warnings
         Map(coordinateRegion: .constant(MKCoordinateRegion(
             center: post.location,
             span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))),
@@ -149,7 +150,6 @@ extension PostSheetView {
     }
 }
 
-//TODO: reenable preview
-//#Preview {
-//    PostSheetView()
-//}
+#Preview {
+    PostSheetView(post: PostService.mockPosts.first!).environmentObject(ProfileViewModel())
+}

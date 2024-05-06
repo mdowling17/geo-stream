@@ -15,7 +15,6 @@ struct IndividualChatView: View {
         VStack {
             ScrollViewReader { scrollView in
                 ScrollView {
-                    // add a dismiss button
                     VStack(spacing: 8) {
                         if let currentUser = chatVM.currentUser, let currentUserId = currentUser.id {
                             ForEach(Array(chatVM.messages.filter { message in
