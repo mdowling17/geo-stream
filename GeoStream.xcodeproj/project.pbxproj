@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		941ADFAC2BE28885006CABD0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 941ADFAB2BE28885006CABD0 /* FirebaseAuth */; };
 		94232C9C2BE81C1800820D0A /* OtherProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94232C9B2BE81C1800820D0A /* OtherProfileView.swift */; };
+		942A4A872BE837EB009C372E /* OtherPostSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942A4A862BE837EB009C372E /* OtherPostSheetView.swift */; };
 		946669072BE56DBC00A2CF76 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946669062BE56DBC00A2CF76 /* ProfileView.swift */; };
 		946669092BE56E3C00A2CF76 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 946669082BE56E3C00A2CF76 /* ProfileViewModel.swift */; };
 		94707BE52BDFDEE7009B0E2A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94707BE42BDFDEE7009B0E2A /* SignInView.swift */; };
@@ -121,6 +122,7 @@
 
 /* Begin PBXFileReference section */
 		94232C9B2BE81C1800820D0A /* OtherProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileView.swift; sourceTree = "<group>"; };
+		942A4A862BE837EB009C372E /* OtherPostSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherPostSheetView.swift; sourceTree = "<group>"; };
 		946669062BE56DBC00A2CF76 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		946669082BE56E3C00A2CF76 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		94707BE42BDFDEE7009B0E2A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -358,7 +360,6 @@
 		C99BF7552BE256B00057DB4C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C92F37772BE65A0F002E7E46 /* ButtonsView.swift */,
 				C946A6302BE47B2B00F9B416 /* ChatView.swift */,
 				9482F53D2BE16BF6003B8B93 /* CreatePostView.swift */,
 				C946A63D2BE4C5E800F9B416 /* FollowersListView.swift */,
@@ -382,6 +383,7 @@
 				94707BE42BDFDEE7009B0E2A /* SignInView.swift */,
 				C914F3482BE2734900B26DE2 /* SignUpView.swift */,
 				94232C9B2BE81C1800820D0A /* OtherProfileView.swift */,
+				942A4A862BE837EB009C372E /* OtherPostSheetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -394,9 +396,7 @@
 				C914F3552BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift */,
 				C9ADAF432BE807B0007B0660 /* LikedPostsViewModel.swift */,
 				C97445182BE52F790042D01F /* MapViewModel.swift */,
-				C92F37872BE7DF41002E7E46 /* PostDetailViewModel.swift */,
 				C9ADAF452BE807F2007B0660 /* PostHistoryViewModel.swift */,
-				C92F377B2BE65CF6002E7E46 /* PostSheetViewModel.swift */,
 				947C89382BE32B4900455335 /* PostViewModel.swift */,
 				C9A332922BE3306000FC1D43 /* ProfileEditViewModel.swift */,
 				946669082BE56E3C00A2CF76 /* ProfileViewModel.swift */,
@@ -606,6 +606,7 @@
 				C914F3562BE2A8BF00B26DE2 /* ForgotPasswordViewModel.swift in Sources */,
 				C97445192BE52F790042D01F /* MapViewModel.swift in Sources */,
 				C99BF7592BE2654D0057DB4C /* AuthService.swift in Sources */,
+				942A4A872BE837EB009C372E /* OtherPostSheetView.swift in Sources */,
 				C9A3329B2BE3323300FC1D43 /* PhotoLibraryPicker.swift in Sources */,
 				C97445212BE57C430042D01F /* PostImageView.swift in Sources */,
 				C9ADAF4A2BE80866007B0660 /* PostHistoryView.swift in Sources */,

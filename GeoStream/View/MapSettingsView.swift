@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MapSettingsView: View {
-    @Binding var mapSettings: MapSettings
+    @Binding var mapSettings: MapSettings 
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {

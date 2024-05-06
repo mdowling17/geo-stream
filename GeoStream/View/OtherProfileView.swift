@@ -18,6 +18,7 @@ struct OtherProfileView: View {
     
     @StateObject var otherProfileVM: OtherProfileViewModel
     @State var selectedPost: Post?
+    
     var user: User
     
     init(user: User) {

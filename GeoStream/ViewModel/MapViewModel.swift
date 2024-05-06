@@ -54,14 +54,36 @@ class MapViewModel: ObservableObject {
     @Published var openedPost: Post?
     
     //SettingsView Settings
-    @Published var distanceSettingEnabled: Bool = true
-    @Published var distanceSetting: Int = 25
-    @Published var timeframeSettingEnabled: Bool = true
-    @Published var timeframeSetting: Int = 24
+    @Published var distanceSettingEnabled: Bool = true {
+        didSet{
+            UserDefaults.standard.set(distanceSettingEnabled, forKey: "distanceSettingEnabled")
+        }
+    }
+    @Published var distanceSetting: Int = 25 {
+        didSet{
+            UserDefaults.standard.set(distanceSetting, forKey: "distanceSetting")
+        }
+    }
+    @Published var timeframeSettingEnabled: Bool = true {
+        didSet{
+            UserDefaults.standard.set(timeframeSettingEnabled, forKey: "timeframeSettingEnabled")
+        }
+    }
+    @Published var timeframeSetting: Int = 24 {
+        didSet{
+            UserDefaults.standard.set(timeframeSetting, forKey: "timeframeSetting")
+        }
+    }
     
     // Map Settings View
     @Published var showMapSettings: Bool = false
-    @Published var mapSettings = MapSettings()
+    @Published var mapSettings = MapSettings() {
+        didSet {
+            if let encodedMapSettings = try? JSONEncoder().encode(mapSettings) {
+                UserDefaults.standard.set(encodedMapSettings, forKey: "mapSettings")
+            }
+        }
+    }
     
     // subscriptions
     var subscribers: Set<AnyCancellable> = []
@@ -72,6 +94,14 @@ class MapViewModel: ObservableObject {
     @Published var currentUser: User?
 
     init() {
+        self.distanceSettingEnabled = UserDefaults.standard.bool(forKey: "distanceSettingEnabled")
+        self.distanceSetting = UserDefaults.standard.integer(forKey: "distanceSetting")
+        self.timeframeSettingEnabled = UserDefaults.standard.bool(forKey: "timeframeSettingEnabled")
+        self.timeframeSetting = UserDefaults.standard.integer(forKey: "timeframeSetting")
+        if let data = UserDefaults.standard.data(forKey: "mapSettings"),
+           let decodedMapSettings = try? JSONDecoder().decode(MapSettings.self, from: data) {
+            mapSettings = decodedMapSettings
+        }
         CommentService.shared.listenToCommentsDatabase()
         subToCommentPublisher()
         PostService.shared.listenToPostsDatabase()
